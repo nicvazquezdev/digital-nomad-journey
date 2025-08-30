@@ -2,7 +2,7 @@ import Image from "next/image";
 
 interface FloatingCardProps {
   title: string;
-  content: string; // Now contains image URL
+  content: string; // Image URL
   cardIndex?: number;
   className?: string;
 }
