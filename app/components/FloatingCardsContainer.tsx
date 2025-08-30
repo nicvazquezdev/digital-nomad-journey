@@ -12,11 +12,6 @@ interface FloatingCardsContainerProps {
 const SLOT_VW = [-85, -80, -75, -70] as const;
 const H_SPACING_PX = 150;
 
-function slotTransformByVisibleIndex(visibleIndex: number) {
-  const i = Math.min(Math.max(visibleIndex, 0), SLOT_VW.length - 1);
-  return `translateX(${SLOT_VW[i]}vw)`;
-}
-
 function targetTransform(originalIndex: number, visibleIndex: number) {
   const i = Math.min(Math.max(visibleIndex, 0), SLOT_VW.length - 1);
   const deltaPx = (originalIndex - visibleIndex) * H_SPACING_PX;
@@ -32,12 +27,14 @@ export default function FloatingCardsContainer({
   const [animatedCards, setAnimatedCards] = useState<Set<string>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Track which cards have completed their initial animation
-  const handleAnimationEnd = (cityId: string) => {
+  const handleAnimationEnd = (cityId: string, el: HTMLElement) => {
+    const computed = window.getComputedStyle(el).transform;
+    if (computed && computed !== "none") {
+      el.style.transform = computed;
+    }
     setAnimatedCards((prev) => new Set([...prev, cityId]));
   };
 
-  // Dynamically reposition cards when one is dismissed
   useEffect(() => {
     if (dismissedCards.size === 0) return;
     const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
@@ -78,18 +75,18 @@ export default function FloatingCardsContainer({
                     originalIndex + 1,
                     4,
                   )} 8s ease-out forwards`,
-              transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: hasCompleted
+                ? "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+                : undefined,
               willChange: "transform",
             }}
             onAnimationEnd={(e) => {
-              // Only handle the slide animation, not floating or other animations
+              const el = e.currentTarget as HTMLElement;
               if (
                 !hasCompleted &&
                 e.animationName.includes("card-slide-and-stop")
               ) {
-                handleAnimationEnd(city.id);
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = slotTransformByVisibleIndex(originalIndex);
+                handleAnimationEnd(city.id, el);
               }
             }}
           >
