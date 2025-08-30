@@ -74,18 +74,9 @@ export default function FloatingCardsContainer({
     setIsDragging(false);
 
     const deltaX = dragCurrent.x - dragStart.x;
-    const threshold = 50; // minimum distance for a swipe
 
-    if (Math.abs(deltaX) > threshold) {
-      const swipeDistance = 200; // distance to move cards
-      if (deltaX > 0) {
-        // Swipe right - move cards right
-        setHorizontalOffset((prev) => prev + swipeDistance);
-      } else {
-        // Swipe left - move cards left
-        setHorizontalOffset((prev) => prev - swipeDistance);
-      }
-    }
+    // Update the base offset with the current drag position
+    setHorizontalOffset((prev) => prev + deltaX);
   };
 
   // Mouse event handlers (for desktop)
@@ -105,18 +96,9 @@ export default function FloatingCardsContainer({
     setIsDragging(false);
 
     const deltaX = dragCurrent.x - dragStart.x;
-    const threshold = 50;
 
-    if (Math.abs(deltaX) > threshold) {
-      const swipeDistance = 200;
-      if (deltaX > 0) {
-        // Drag right - move cards right
-        setHorizontalOffset((prev) => prev + swipeDistance);
-      } else {
-        // Drag left - move cards left
-        setHorizontalOffset((prev) => prev - swipeDistance);
-      }
-    }
+    // Update the base offset with the current drag position
+    setHorizontalOffset((prev) => prev + deltaX);
   };
 
   useEffect(() => {
@@ -136,12 +118,17 @@ export default function FloatingCardsContainer({
 
   const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
 
+  // Calculate real-time offset during drag
+  const currentOffset = isDragging
+    ? horizontalOffset + (dragCurrent.x - dragStart.x)
+    : horizontalOffset;
+
   return (
     <div
       ref={containerRef}
       className={`absolute inset-0 ${className}`}
       style={{
-        transform: `translateX(${horizontalOffset}px)`,
+        transform: `translateX(${currentOffset}px)`,
         transition: isDragging ? "none" : "transform 0.3s ease-out",
         cursor: isDragging ? "grabbing" : "grab",
       }}
