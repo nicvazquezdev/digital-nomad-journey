@@ -119,36 +119,12 @@ body {
 }
 
 /* Cards animations - each stops at different distances to avoid collision */
-@keyframes card-slide-and-stop-1 {
+@keyframes card-slide-and-stop {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-85vw);
-  }
-}
-@keyframes card-slide-and-stop-2 {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-80vw);
-  }
-}
-@keyframes card-slide-and-stop-3 {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-75vw);
-  }
-}
-@keyframes card-slide-and-stop-4 {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-70vw);
+    transform: translateX(var(--target-x));
   }
 }
 
