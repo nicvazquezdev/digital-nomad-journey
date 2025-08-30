@@ -37,14 +37,12 @@ export default function FloatingCard({
         relative
         bg-gradient-to-br from-amber-50 to-orange-100
         rounded-lg
-        shadow-lg
         w-80
         h-56
         transform
         transition-all
         duration-300
         hover:scale-105
-        hover:shadow-2xl
         border-8
         border-white
         cursor-pointer
@@ -53,8 +51,6 @@ export default function FloatingCard({
         ${className}
       `}
       style={{
-        boxShadow:
-          "0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6)",
         animationDelay: `${cardIndex * 0.2}s`,
       }}
       onClick={onClick}
@@ -66,7 +62,7 @@ export default function FloatingCard({
       {onDismiss && (
         <button
           onClick={handleDismiss}
-          className="absolute top-2 left-2 z-10 bg-red-800 hover:bg-red-600 cursor-pointer text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
+          className="absolute top-0 left-0 z-10 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
           aria-label="Omitir tarjeta"
           onMouseEnter={(e) => {
             const card = e.currentTarget.closest(".relative");
