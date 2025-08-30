@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { CityData } from "../data/cities";
 import { useEffect } from "react";
+import ImageGallery from "./ImageGallery";
 
 interface DigitalNomadModalProps {
   city: CityData | null;
@@ -103,29 +104,7 @@ export default function DigitalNomadModal({
           </div>
 
           {/* Image Gallery */}
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-4 font-serif">
-              Galería de Recuerdos
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {city.images.map((imageUrl, index) => (
-                <div
-                  key={index}
-                  className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group"
-                >
-                  <Image
-                    src={imageUrl}
-                    alt={`${city.title} - Imagen ${index + 1}`}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  {/* Vintage photo effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-100/20 via-transparent to-orange-200/30 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ImageGallery images={city.images} cityTitle={city.title} />
 
           {/* Decorative postcard elements */}
           <div className="flex justify-center mt-8">
