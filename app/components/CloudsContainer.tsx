@@ -1,11 +1,12 @@
 import Cloud from "./Cloud";
+import { useMemo, memo } from "react";
 
 interface CloudsContainerProps {
   cloudCount?: number;
   className?: string;
 }
 
-export default function CloudsContainer({
+function CloudsContainer({
   cloudCount = 25,
   className = "",
 }: CloudsContainerProps) {
@@ -33,7 +34,7 @@ export default function CloudsContainer({
     return clouds;
   };
 
-  const clouds = generateClouds();
+  const clouds = useMemo(generateClouds, [cloudCount]);
 
   return (
     <div className={`absolute inset-0 pointer-events-none ${className}`}>
@@ -54,3 +55,5 @@ export default function CloudsContainer({
     </div>
   );
 }
+
+export default memo(CloudsContainer);
