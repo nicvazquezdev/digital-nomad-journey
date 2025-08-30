@@ -43,19 +43,20 @@ export default function FloatingCardsContainer({
     if (dismissedCards.size === 0) return;
 
     const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
-    
+
     // Only reposition cards that have completed their initial animation
     visibleCities.forEach((city, newVisibleIndex) => {
       if (animatedCards.has(city.id) && containerRef.current) {
         const cardElement = containerRef.current.querySelector(
           `[data-city-id="${city.id}"]`,
         ) as HTMLElement;
-        
+
         if (cardElement) {
           const newTransform = getCardFinalTransform(newVisibleIndex);
-          
+
           // Apply smooth transition to new position
-          cardElement.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+          cardElement.style.transition =
+            "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
           cardElement.style.transform = newTransform;
         }
       }
