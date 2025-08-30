@@ -1,6 +1,6 @@
 import FloatingCard from "./FloatingCard";
 import { cities, type CityData } from "../data/cities";
-import { useRef, useState, useEffect, CSSProperties } from "react";
+import { useRef, useState, useEffect, useCallback, CSSProperties } from "react";
 
 interface FloatingCardsContainerProps {
   className?: string;
@@ -22,17 +22,29 @@ export default function FloatingCardsContainer({
   hSpacingPx = 150,
 }: FloatingCardsContainerProps) {
   const [animatedCards, setAnimatedCards] = useState<Set<string>>(new Set());
+  const [horizontalOffset, setHorizontalOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragCurrent, setDragCurrent] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const vwFor = (index: number) => `${baseVw + index * stepVw}vw`;
+  const vwFor = useCallback(
+    (index: number) => `${baseVw + index * stepVw}vw`,
+    [baseVw, stepVw],
+  );
 
-  const slotTransformByOriginalIndex = (originalIndex: number) =>
-    `translateX(${vwFor(originalIndex)})`;
+  const slotTransformByOriginalIndex = useCallback(
+    (originalIndex: number) => `translateX(${vwFor(originalIndex)})`,
+    [vwFor],
+  );
 
-  const targetTransform = (originalIndex: number, visibleIndex: number) => {
-    const deltaPx = (originalIndex - visibleIndex) * hSpacingPx;
-    return `translateX(calc(${vwFor(visibleIndex)} - ${deltaPx}px))`;
-  };
+  const targetTransform = useCallback(
+    (originalIndex: number, visibleIndex: number) => {
+      const deltaPx = (originalIndex - visibleIndex) * hSpacingPx;
+      return `translateX(calc(${vwFor(visibleIndex)} - ${deltaPx}px))`;
+    },
+    [hSpacingPx, vwFor],
+  );
 
   const handleAnimationEnd = (
     cityId: string,
@@ -41,6 +53,70 @@ export default function FloatingCardsContainer({
   ) => {
     el.style.transform = slotTransformByOriginalIndex(originalIndex);
     setAnimatedCards((prev) => new Set([...prev, cityId]));
+  };
+
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
+    const touch = e.touches[0];
+    setDragStart({ x: touch.clientX, y: touch.clientY });
+    setDragCurrent({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    setDragCurrent({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const deltaX = dragCurrent.x - dragStart.x;
+    const threshold = 50; // minimum distance for a swipe
+
+    if (Math.abs(deltaX) > threshold) {
+      const swipeDistance = 200; // distance to move cards
+      if (deltaX > 0) {
+        // Swipe right - move cards right
+        setHorizontalOffset((prev) => prev + swipeDistance);
+      } else {
+        // Swipe left - move cards left
+        setHorizontalOffset((prev) => prev - swipeDistance);
+      }
+    }
+  };
+
+  // Mouse event handlers (for desktop)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setDragStart({ x: e.clientX, y: e.clientY });
+    setDragCurrent({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    setDragCurrent({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const deltaX = dragCurrent.x - dragStart.x;
+    const threshold = 50;
+
+    if (Math.abs(deltaX) > threshold) {
+      const swipeDistance = 200;
+      if (deltaX > 0) {
+        // Drag right - move cards right
+        setHorizontalOffset((prev) => prev + swipeDistance);
+      } else {
+        // Drag left - move cards left
+        setHorizontalOffset((prev) => prev - swipeDistance);
+      }
+    }
   };
 
   useEffect(() => {
@@ -56,12 +132,27 @@ export default function FloatingCardsContainer({
       el.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
       el.style.transform = targetTransform(originalIndex, visibleIndex);
     });
-  }, [dismissedCards, animatedCards, hSpacingPx, baseVw, stepVw]);
+  }, [dismissedCards, animatedCards, targetTransform]);
 
   const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
 
   return (
-    <div ref={containerRef} className={`absolute inset-0 ${className}`}>
+    <div
+      ref={containerRef}
+      className={`absolute inset-0 ${className}`}
+      style={{
+        transform: `translateX(${horizontalOffset}px)`,
+        transition: isDragging ? "none" : "transform 0.3s ease-out",
+        cursor: isDragging ? "grabbing" : "grab",
+      }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp} // End drag if mouse leaves container
+    >
       {visibleCities.map((city, visibleIndex) => {
         const originalIndex = cities.findIndex((c) => c.id === city.id);
         const hasCompleted = animatedCards.has(city.id);
