@@ -25,12 +25,12 @@ export default function Airplane({
       className={`
         absolute 
         ${getSizeClasses()}
+        animate-airplane-hover
         ${className}
       `}
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
-        transform: "translate(-50%, -50%)",
       }}
     >
       {/* Friendly airplane design */}
