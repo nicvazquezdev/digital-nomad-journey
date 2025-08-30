@@ -5,6 +5,7 @@ interface FloatingCardProps {
   content: string; // Image URL
   cardIndex?: number;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function FloatingCard({
@@ -12,6 +13,7 @@ export default function FloatingCard({
   content,
   cardIndex = 0,
   className = "",
+  onClick,
 }: FloatingCardProps) {
   return (
     <div
@@ -29,12 +31,14 @@ export default function FloatingCard({
         hover:shadow-2xl
         border-8
         border-white
+        cursor-pointer
         ${className}
       `}
       style={{
         boxShadow:
           "0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6)",
       }}
+      onClick={onClick}
     >
       {/* Postcard vintage texture overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-amber-100/20 to-orange-200/30 rounded-lg"></div>
