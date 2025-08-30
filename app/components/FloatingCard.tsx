@@ -24,14 +24,13 @@ export default function FloatingCard({
   const [isDisappearing, setIsDisappearing] = useState(false);
 
   const handleDismiss = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card click
+    e.stopPropagation();
     setIsDisappearing(true);
-
-    // Wait for animation to complete before actually dismissing
     setTimeout(() => {
       onDismiss?.();
     }, 1000);
   };
+
   return (
     <div
       className={`
@@ -67,10 +66,9 @@ export default function FloatingCard({
       {onDismiss && (
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 z-10 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
+          className="absolute top-2 left-2 z-10 bg-red-800 hover:bg-red-600 cursor-pointer text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
           aria-label="Omitir tarjeta"
           onMouseEnter={(e) => {
-            // Add wobble effect to the entire card when hovering the dismiss button
             const card = e.currentTarget.closest(".relative");
             card?.classList.add("animate-wobble");
             setTimeout(() => {
@@ -103,23 +101,17 @@ export default function FloatingCard({
           className="object-cover"
           sizes="320px"
         />
-        {/* Vintage photo effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-100/20 via-transparent to-orange-200/30 mix-blend-overlay"></div>
       </div>
 
       {/* Postcard bottom section */}
       <div className="relative h-16 bg-gradient-to-r from-amber-50 to-orange-50 p-3 rounded-b-lg">
-        {/* Decorative postmark circle */}
         <div className="absolute top-2 right-3 w-10 h-10 border-2 border-red-400/60 rounded-full flex items-center justify-center">
           <div className="w-6 h-6 border border-red-400/40 rounded-full"></div>
         </div>
-
-        {/* City Name in postcard style */}
         <h3 className="text-xl font-bold text-gray-800 tracking-wide font-serif">
           {title}
         </h3>
-
-        {/* Decorative postcard lines */}
         <div className="absolute bottom-2 left-3 right-16 space-y-1">
           <div className="h-px bg-gray-300/50"></div>
         </div>
