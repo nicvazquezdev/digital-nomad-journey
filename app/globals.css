@@ -30,13 +30,21 @@ body {
   width: 100%;
 }
 
-/* Custom cloud floating animation - off-screen right to off-screen left */
+/* Custom cloud floating animation - off-screen right to off-screen left with fade in */
 @keyframes float {
-  from {
+  0% {
     transform: translateX(0);
+    opacity: 0;
   }
-  to {
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
     transform: translateX(calc(-200vw - 500px));
+    opacity: 0;
   }
 }
 
