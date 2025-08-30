@@ -11,11 +11,11 @@ export default function Home() {
 
       {/* Full page clouds */}
       <div className="fixed inset-0 z-10">
-        <CloudsContainer cloudCount={12} />
+        <CloudsContainer cloudCount={25} />
       </div>
 
       {/* Floating cards */}
-      <div className="fixed inset-0 z-10">
+      <div className="fixed inset-0 z-20">
         <FloatingCardsContainer />
       </div>
 

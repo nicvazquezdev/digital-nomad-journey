@@ -33,12 +33,11 @@ export default function FloatingCardsContainer({
       {cards.map((card, index) => (
         <div
           key={card.id}
-          className="absolute animate-float"
+          className="absolute animate-card-slide"
           style={{
-            left: `${100 + Math.random() * 50}%`, // Always start off-screen right (100% to 150%)
-            top: `30%`, // Center area around airplane height (35-55%)
-            animationDelay: `${index * 5}s`, // Positive delays only - cards appear one after another
-            animationDuration: `${16 + Math.random() * 8}s`, // Same duration as clouds
+            left: `100%`, // Start exactly at screen edge
+            top: `${25 + index * 15}%`, // Stagger vertical positions to avoid overlap (25%, 40%, 55%, etc.)
+            animationDelay: `${index === 0 ? 0 : index * 3}s`, // First card immediate, others staggered
           }}
         >
           <FloatingCard

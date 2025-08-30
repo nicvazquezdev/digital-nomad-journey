@@ -110,6 +110,22 @@ body {
   animation: propeller-spin 0.1s linear infinite;
 }
 
+/* Cards animation - move from right and stop before airplane */
+@keyframes card-slide-and-stop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(-80vw)
+    ); /* Move close to airplane position (around 10%) */
+  }
+}
+
+.animate-card-slide {
+  animation: card-slide-and-stop 8s ease-out forwards;
+}
+
 /* Floating cards animation - slow drift from right to left and stop */
 @keyframes card-slide-and-float {
   0% {
