@@ -57,6 +57,15 @@ export default function FloatingCardsContainer({
 
   // Touch event handlers
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Only allow dragging if the touch started on a card, not on the background
+    const target = e.target as HTMLElement;
+    const isOnCard = target.closest("[data-city-id]") !== null;
+
+    if (!isOnCard) return;
+
+    // Prevent default touch behaviors (like scrolling) when starting drag on a card
+    e.preventDefault();
+
     setIsDragging(true);
     const touch = e.touches[0];
     setDragStart({ x: touch.clientX, y: touch.clientY });
@@ -65,6 +74,10 @@ export default function FloatingCardsContainer({
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
+
+    // Prevent default scrolling behavior while dragging
+    e.preventDefault();
+
     const touch = e.touches[0];
     setDragCurrent({ x: touch.clientX, y: touch.clientY });
   };
@@ -81,6 +94,15 @@ export default function FloatingCardsContainer({
 
   // Mouse event handlers (for desktop)
   const handleMouseDown = (e: React.MouseEvent) => {
+    // Only allow dragging if the click started on a card, not on the background
+    const target = e.target as HTMLElement;
+    const isOnCard = target.closest("[data-city-id]") !== null;
+
+    if (!isOnCard) return;
+
+    // Prevent default mouse behaviors when starting drag on a card
+    e.preventDefault();
+
     setIsDragging(true);
     setDragStart({ x: e.clientX, y: e.clientY });
     setDragCurrent({ x: e.clientX, y: e.clientY });
@@ -131,6 +153,8 @@ export default function FloatingCardsContainer({
         transform: `translateX(${currentOffset}px)`,
         transition: isDragging ? "none" : "transform 0.3s ease-out",
         cursor: isDragging ? "grabbing" : "grab",
+        touchAction: "none", // Prevent default touch behaviors
+        userSelect: "none", // Prevent text selection during drag
       }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
