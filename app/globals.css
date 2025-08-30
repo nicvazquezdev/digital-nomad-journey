@@ -124,42 +124,31 @@ body {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(
-      calc(-85vw)
-    ); /* First card stops closest to airplane */
+    transform: translateX(-85vw);
   }
 }
-
 @keyframes card-slide-and-stop-2 {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(
-      calc(-80vw)
-    ); /* Second card stops before first card */
+    transform: translateX(-80vw);
   }
 }
-
 @keyframes card-slide-and-stop-3 {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(
-      calc(-75vw)
-    ); /* Third card stops before second card */
+    transform: translateX(-75vw);
   }
 }
-
 @keyframes card-slide-and-stop-4 {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(
-      calc(-70vw)
-    ); /* Fourth card stops before third card */
+    transform: translateX(-70vw);
   }
 }
 

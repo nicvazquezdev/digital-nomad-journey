@@ -12,6 +12,11 @@ interface FloatingCardsContainerProps {
 const SLOT_VW = [-85, -80, -75, -70] as const;
 const H_SPACING_PX = 150;
 
+function slotTransformByOriginalIndex(originalIndex: number) {
+  const i = Math.min(Math.max(originalIndex, 0), SLOT_VW.length - 1);
+  return `translateX(${SLOT_VW[i]}vw)`;
+}
+
 function targetTransform(originalIndex: number, visibleIndex: number) {
   const i = Math.min(Math.max(visibleIndex, 0), SLOT_VW.length - 1);
   const deltaPx = (originalIndex - visibleIndex) * H_SPACING_PX;
@@ -27,18 +32,19 @@ export default function FloatingCardsContainer({
   const [animatedCards, setAnimatedCards] = useState<Set<string>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleAnimationEnd = (cityId: string, el: HTMLElement) => {
-    const computed = window.getComputedStyle(el).transform;
-    if (computed && computed !== "none") {
-      el.style.transform = computed;
-    }
+  const handleAnimationEnd = (
+    cityId: string,
+    originalIndex: number,
+    el: HTMLElement,
+  ) => {
+    el.style.transform = slotTransformByOriginalIndex(originalIndex);
     setAnimatedCards((prev) => new Set([...prev, cityId]));
   };
 
   useEffect(() => {
     if (dismissedCards.size === 0) return;
-    const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
-    visibleCities.forEach((city, newVisibleIndex) => {
+    const visible = cities.filter((c) => !dismissedCards.has(c.id));
+    visible.forEach((city, visibleIndex) => {
       if (!animatedCards.has(city.id) || !containerRef.current) return;
       const el = containerRef.current.querySelector(
         `[data-city-id="${city.id}"]`,
@@ -46,7 +52,7 @@ export default function FloatingCardsContainer({
       if (!el) return;
       const originalIndex = cities.findIndex((c) => c.id === city.id);
       el.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
-      el.style.transform = targetTransform(originalIndex, newVisibleIndex);
+      el.style.transform = targetTransform(originalIndex, visibleIndex);
     });
   }, [dismissedCards, animatedCards]);
 
@@ -64,7 +70,7 @@ export default function FloatingCardsContainer({
             data-city-id={city.id}
             className="absolute pointer-events-auto"
             style={{
-              left: `calc(100% + ${100 + originalIndex * 150}px)`,
+              left: `calc(100% + ${100 + originalIndex * H_SPACING_PX}px)`,
               top: `${
                 30 + (originalIndex % 2) * 10 + Math.sin(originalIndex) * 5
               }%`,
@@ -81,12 +87,15 @@ export default function FloatingCardsContainer({
               willChange: "transform",
             }}
             onAnimationEnd={(e) => {
-              const el = e.currentTarget as HTMLElement;
               if (
                 !hasCompleted &&
                 e.animationName.includes("card-slide-and-stop")
               ) {
-                handleAnimationEnd(city.id, el);
+                handleAnimationEnd(
+                  city.id,
+                  originalIndex,
+                  e.currentTarget as HTMLElement,
+                );
               }
             }}
           >
