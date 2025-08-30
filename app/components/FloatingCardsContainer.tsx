@@ -26,6 +26,7 @@ export default function FloatingCardsContainer({
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragCurrent, setDragCurrent] = useState({ x: 0, y: 0 });
+  const [hasDragged, setHasDragged] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const vwFor = useCallback(
@@ -67,6 +68,7 @@ export default function FloatingCardsContainer({
     e.preventDefault();
 
     setIsDragging(true);
+    setHasDragged(false); // Reset drag flag
     const touch = e.touches[0];
     setDragStart({ x: touch.clientX, y: touch.clientY });
     setDragCurrent({ x: touch.clientX, y: touch.clientY });
@@ -79,6 +81,14 @@ export default function FloatingCardsContainer({
     e.preventDefault();
 
     const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - dragStart.x);
+    const deltaY = Math.abs(touch.clientY - dragStart.y);
+
+    // If movement is significant enough, mark as dragged
+    if (deltaX > 5 || deltaY > 5) {
+      setHasDragged(true);
+    }
+
     setDragCurrent({ x: touch.clientX, y: touch.clientY });
   };
 
@@ -104,12 +114,22 @@ export default function FloatingCardsContainer({
     e.preventDefault();
 
     setIsDragging(true);
+    setHasDragged(false); // Reset drag flag
     setDragStart({ x: e.clientX, y: e.clientY });
     setDragCurrent({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
+
+    const deltaX = Math.abs(e.clientX - dragStart.x);
+    const deltaY = Math.abs(e.clientY - dragStart.y);
+
+    // If movement is significant enough, mark as dragged
+    if (deltaX > 5 || deltaY > 5) {
+      setHasDragged(true);
+    }
+
     setDragCurrent({ x: e.clientX, y: e.clientY });
   };
 
@@ -121,6 +141,14 @@ export default function FloatingCardsContainer({
 
     // Update the base offset with the current drag position
     setHorizontalOffset((prev) => prev + deltaX);
+  };
+
+  // Custom click handler that prevents clicks after dragging
+  const handleCardClick = (city: CityData) => {
+    // Only trigger click if there was no significant drag movement
+    if (!hasDragged && onCardClick) {
+      onCardClick(city);
+    }
   };
 
   useEffect(() => {
@@ -208,7 +236,7 @@ export default function FloatingCardsContainer({
               title={city.title}
               content={city.imageUrl}
               cardIndex={visibleIndex}
-              onClick={() => onCardClick?.(city)}
+              onClick={() => handleCardClick(city)}
               onDismiss={() => onDismissCard?.(city.id)}
               city={city}
             />
