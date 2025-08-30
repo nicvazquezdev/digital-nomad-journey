@@ -1,5 +1,6 @@
 import Sky from "./components/Sky";
 import CloudsContainer from "./components/CloudsContainer";
+import Airplane from "./components/Airplane";
 
 export default function Home() {
   return (
@@ -9,6 +10,9 @@ export default function Home() {
 
       {/* Animated clouds */}
       <CloudsContainer cloudCount={8} />
+
+      {/* Static airplane */}
+      <Airplane size="large" position={{ x: 10, y: 25 }} />
     </div>
   );
 }
