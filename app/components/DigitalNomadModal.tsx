@@ -47,7 +47,7 @@ export default function DigitalNomadModal({
       />
 
       {/* Modal Content */}
-      <div className="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border-4 border-white">
+      <div className="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] border-4 border-white flex flex-col">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -70,7 +70,7 @@ export default function DigitalNomadModal({
         </button>
 
         {/* Header */}
-        <div className="relative h-64 overflow-hidden rounded-t-2xl">
+        <div className="relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
           <Image
             src={city.imageUrl}
             alt={city.title}
@@ -89,12 +89,17 @@ export default function DigitalNomadModal({
           </div>
         </div>
 
-        <div className="p-8">
-          <p className="text-lg text-gray-700 leading-relaxed mb-8">
+        {/* Content */}
+        <div className="flex-1 overflow-hidden flex flex-col">
+          {/* Description - Fixed section */}
+          <p className="px-8 py-4 md:text-lg text-gray-700 leading-relaxed flex-shrink-0">
             {city.description}
           </p>
 
-          <ImageGallery images={city.images} cityTitle={city.title} />
+          {/* Image Gallery - Scrollable section */}
+          <div className="flex-1 overflow-y-auto px-8 pb-8">
+            <ImageGallery images={city.images} cityTitle={city.title} />
+          </div>
         </div>
       </div>
     </div>
