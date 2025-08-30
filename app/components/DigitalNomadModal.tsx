@@ -79,10 +79,8 @@ export default function DigitalNomadModal({
             sizes="800px"
             priority
           />
-          {/* Vintage overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-amber-100/30 via-transparent to-orange-200/40 mix-blend-overlay" />
 
-          {/* Title overlay */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
             <h1 className="text-4xl font-bold text-white font-serif mb-2">
               {city.title}
@@ -91,44 +89,12 @@ export default function DigitalNomadModal({
           </div>
         </div>
 
-        {/* Content */}
         <div className="p-8">
-          {/* Description */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 font-serif">
-              Mi Experiencia
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              {city.description}
-            </p>
-          </div>
+          <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            {city.description}
+          </p>
 
-          {/* Image Gallery */}
           <ImageGallery images={city.images} cityTitle={city.title} />
-
-          {/* Decorative postcard elements */}
-          <div className="flex justify-center mt-8">
-            <div className="flex items-center space-x-4 text-gray-500">
-              {/* Postmark decoration */}
-              <div className="w-16 h-16 border-2 border-red-400/60 rounded-full flex items-center justify-center">
-                <div className="w-10 h-10 border border-red-400/40 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-red-400">
-                    {city.date.split(" ")[1]}
-                  </span>
-                </div>
-              </div>
-              <div className="text-center">
-                <p className="text-sm font-medium text-gray-600">
-                  Nómada Digital Journey
-                </p>
-                <div className="flex space-x-1 mt-1">
-                  <div className="w-2 h-2 bg-amber-300 rounded-full"></div>
-                  <div className="w-2 h-2 bg-orange-300 rounded-full"></div>
-                  <div className="w-2 h-2 bg-red-300 rounded-full"></div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

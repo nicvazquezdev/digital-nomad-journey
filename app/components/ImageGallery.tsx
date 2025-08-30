@@ -45,11 +45,6 @@ export default function ImageGallery({ images, cityTitle }: ImageGalleryProps) {
 
   return (
     <div className="mb-6">
-      <h3 className="text-xl font-bold text-gray-800 mb-4 font-serif">
-        Galería de Recuerdos ({images.length}{" "}
-        {images.length === 1 ? "imagen" : "imágenes"})
-      </h3>
-
       <div className={`grid gap-4 ${getGridLayoutClass(images.length)}`}>
         {images.map((imageUrl, index) => (
           <div

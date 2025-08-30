@@ -73,7 +73,7 @@ export default function FloatingCard({
           }}
         >
           <svg
-            className="w-3 h-3 group-hover:rotate-90 transition-transform duration-200"
+            className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
