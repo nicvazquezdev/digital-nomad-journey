@@ -31,12 +31,22 @@ export default function FloatingCardsContainer({
   return (
     <div className={`absolute inset-0 pointer-events-none ${className}`}>
       {cards.map((card, index) => (
-        <FloatingCard
+        <div
           key={card.id}
-          title={card.title}
-          content={card.content}
-          cardIndex={index}
-        />
+          className="absolute animate-float"
+          style={{
+            left: `${100 + Math.random() * 50}%`, // Always start off-screen right (100% to 150%)
+            top: `30%`, // Center area around airplane height (35-55%)
+            animationDelay: `${index * 5}s`, // Positive delays only - cards appear one after another
+            animationDuration: `${16 + Math.random() * 8}s`, // Same duration as clouds
+          }}
+        >
+          <FloatingCard
+            title={card.title}
+            content={card.content}
+            cardIndex={index}
+          />
+        </div>
       ))}
     </div>
   );
