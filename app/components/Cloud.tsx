@@ -1,15 +1,11 @@
 interface CloudProps {
   size?: "small" | "medium" | "large";
-  animationDuration?: number;
-  initialPosition?: number;
   opacity?: number;
   className?: string;
 }
 
 export default function Cloud({
   size = "medium",
-  animationDuration = 20,
-  initialPosition = 0,
   opacity = 0.8,
   className = "",
 }: CloudProps) {
@@ -27,14 +23,11 @@ export default function Cloud({
   return (
     <div
       className={`
-        absolute 
+        relative 
         ${getSizeClasses()}
-        animate-float
         ${className}
       `}
       style={{
-        left: `${initialPosition}%`,
-        animationDuration: `${animationDuration}s`,
         opacity: opacity,
       }}
     >

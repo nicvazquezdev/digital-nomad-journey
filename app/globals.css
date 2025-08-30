@@ -30,18 +30,18 @@ body {
   width: 100%;
 }
 
-/* Custom cloud floating animation - right to left */
+/* Custom cloud floating animation - off-screen right to off-screen left */
 @keyframes float {
   from {
-    transform: translateX(calc(100vw + 100px));
+    transform: translateX(0);
   }
   to {
-    transform: translateX(-100px);
+    transform: translateX(calc(-200vw - 500px));
   }
 }
 
 .animate-float {
-  animation: float 20s infinite linear;
+  animation: float 18s infinite linear;
 }
 
 /* Fun airplane floating animation */
