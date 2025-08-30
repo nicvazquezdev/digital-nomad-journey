@@ -19,10 +19,15 @@
   }
 }
 
+html,
 body {
-  background: var(--background);
+  background: transparent; /* Let the sky component handle the background */
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 /* Custom cloud floating animation - right to left */
@@ -60,4 +65,47 @@ body {
 
 .animate-airplane-hover {
   animation: airplane-hover 4s ease-in-out infinite;
+}
+
+/* Floating cards animation - slow drift from right to left and stop */
+@keyframes card-slide-and-float {
+  0% {
+    transform: translateX(calc(100vw + 100px)) translateY(0px);
+  }
+  80% {
+    transform: translateX(30%) translateY(-6px);
+  }
+  90% {
+    transform: translateX(30%) translateY(-3px);
+  }
+  100% {
+    transform: translateX(30%) translateY(0px);
+  }
+}
+
+@keyframes card-slide-and-float-second {
+  0% {
+    transform: translateX(calc(100vw + 100px)) translateY(0px);
+  }
+  80% {
+    transform: translateX(50%) translateY(-6px);
+  }
+  90% {
+    transform: translateX(50%) translateY(-3px);
+  }
+  100% {
+    transform: translateX(50%) translateY(0px);
+  }
+}
+
+.animate-card-slide-first {
+  animation: card-slide-and-float 30s ease-out forwards;
+  animation-delay: 0s;
+  animation-fill-mode: both;
+}
+
+.animate-card-slide-second {
+  animation: card-slide-and-float-second 35s ease-out forwards;
+  animation-delay: 3s;
+  animation-fill-mode: both;
 }
