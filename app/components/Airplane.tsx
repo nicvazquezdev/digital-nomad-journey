@@ -53,9 +53,9 @@ export default function Airplane({
         {/* Wing stripes for decoration */}
         <div className="absolute top-1/2 left-1/5 w-3/5 h-0.5 bg-white rounded-full transform -translate-y-1/2 opacity-80"></div>
 
-        {/* Propeller */}
+        {/* Propeller with spinning animation */}
         <div className="absolute top-1/2 right-0 w-1/12 h-1/12 bg-gray-600 rounded-full transform -translate-y-1/2"></div>
-        <div className="absolute top-1/2 right-0 w-1/16 h-1/3 bg-gray-400 rounded-full transform -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute top-1/2 right-0 w-1/16 h-1/3 bg-gray-400 rounded-full transform -translate-y-1/2 translate-x-1/2 animate-propeller"></div>
 
         {/* Landing gear (small circles) */}
         <div className="absolute bottom-1/6 left-2/5 w-1/12 h-1/12 bg-gray-500 rounded-full"></div>
