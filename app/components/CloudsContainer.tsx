@@ -33,13 +33,13 @@ function CloudsContainer({
     }> = [];
 
     for (let i = 0; i < cloudCount; i++) {
-      const sizeIndex = Math.floor(rnd() * 3); // 0..2
+      const sizeIndex = Math.floor(rnd() * 3);
       const size = (["small", "medium", "large"] as const)[sizeIndex];
-      const animationDuration = 16 + rnd() * 8; // 16-24s
-      const left = 80 + rnd() * 70; // 80%-150%
-      const opacity = 0.6 + rnd() * 0.4; // 0.6-1.0
-      const top = rnd() * 70; // 0-70%
-      const delay = (i / cloudCount) * 20 - 10; // -10..+10 aprox
+      const animationDuration = 16 + rnd() * 8;
+      const left = 80 + rnd() * 70;
+      const opacity = 0.6 + rnd() * 0.4;
+      const top = rnd() * 70;
+      const delay = -(i / Math.max(cloudCount - 1, 1)) * 10 - rnd() * 10;
 
       list.push({
         id: i,
