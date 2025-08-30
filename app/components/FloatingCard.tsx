@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
+import { type CityData } from "../data/cities";
 
 interface FloatingCardProps {
   title: string;
@@ -6,6 +8,8 @@ interface FloatingCardProps {
   cardIndex?: number;
   className?: string;
   onClick?: () => void;
+  onDismiss?: () => void;
+  city?: CityData;
 }
 
 export default function FloatingCard({
@@ -14,7 +18,20 @@ export default function FloatingCard({
   cardIndex = 0,
   className = "",
   onClick,
+  onDismiss,
+  city,
 }: FloatingCardProps) {
+  const [isDisappearing, setIsDisappearing] = useState(false);
+
+  const handleDismiss = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click
+    setIsDisappearing(true);
+
+    // Wait for animation to complete before actually dismissing
+    setTimeout(() => {
+      onDismiss?.();
+    }, 1000);
+  };
   return (
     <div
       className={`
@@ -32,16 +49,50 @@ export default function FloatingCard({
         border-8
         border-white
         cursor-pointer
+        animate-float-gentle
+        ${isDisappearing ? "animate-disappear-funny" : ""}
         ${className}
       `}
       style={{
         boxShadow:
           "0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6)",
+        animationDelay: `${cardIndex * 0.2}s`,
       }}
       onClick={onClick}
     >
       {/* Postcard vintage texture overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-amber-100/20 to-orange-200/30 rounded-lg"></div>
+
+      {/* Dismiss button */}
+      {onDismiss && (
+        <button
+          onClick={handleDismiss}
+          className="absolute top-2 right-2 z-10 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
+          aria-label="Omitir tarjeta"
+          onMouseEnter={(e) => {
+            // Add wobble effect to the entire card when hovering the dismiss button
+            const card = e.currentTarget.closest(".relative");
+            card?.classList.add("animate-wobble");
+            setTimeout(() => {
+              card?.classList.remove("animate-wobble");
+            }, 500);
+          }}
+        >
+          <svg
+            className="w-3 h-3 group-hover:rotate-90 transition-transform duration-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={3}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
 
       {/* City Image */}
       <div className="relative w-full h-40 overflow-hidden rounded-t-lg">

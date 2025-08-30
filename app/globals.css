@@ -205,3 +205,86 @@ body {
   animation-delay: 3s;
   animation-fill-mode: both;
 }
+
+/* Gentle floating animation for cards */
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-0.3deg);
+  }
+  75% {
+    transform: translateY(-12px) rotate(0.8deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+/* Funny disappearing animation */
+@keyframes disappear-funny {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.8) rotate(-10deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: scale(1.2) rotate(15deg);
+    opacity: 0.3;
+  }
+  90% {
+    transform: scale(0.1) rotate(360deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(0) rotate(720deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.animate-disappear-funny {
+  animation: disappear-funny 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Wobble effect for cards when hovering dismiss button */
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(1deg);
+  }
+  30% {
+    transform: rotate(-1deg);
+  }
+  45% {
+    transform: rotate(1deg);
+  }
+  60% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-wobble {
+  animation: wobble 0.5s ease-in-out;
+}

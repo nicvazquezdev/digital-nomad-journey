@@ -11,6 +11,7 @@ import { type CityData } from "./data/cities";
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState<CityData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dismissedCards, setDismissedCards] = useState<Set<string>>(new Set());
 
   const handleCardClick = (city: CityData) => {
     setSelectedCity(city);
@@ -20,6 +21,10 @@ export default function Home() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedCity(null);
+  };
+
+  const handleDismissCard = (cityId: string) => {
+    setDismissedCards((prev) => new Set([...prev, cityId]));
   };
 
   return (
@@ -34,7 +39,11 @@ export default function Home() {
 
       {/* Floating cards */}
       <div className="fixed inset-0 z-20">
-        <FloatingCardsContainer onCardClick={handleCardClick} />
+        <FloatingCardsContainer
+          onCardClick={handleCardClick}
+          onDismissCard={handleDismissCard}
+          dismissedCards={dismissedCards}
+        />
       </div>
 
       <Airplane size="large" position={{ x: 10, y: 40 }} />
