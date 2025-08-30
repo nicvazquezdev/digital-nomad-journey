@@ -9,13 +9,13 @@ export interface CityData {
 
 export const cities: CityData[] = [
   {
-    id: "roma",
-    title: "Roma",
+    id: "italy",
+    title: "Italy",
     imageUrl:
       "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400&h=250&fit=crop&q=80",
-    date: "Enero 2024",
+    date: "January 2024",
     description:
-      "Mi primera parada como nómada digital en la ciudad eterna. Trabajé desde cafeterías cerca del Coliseo y pasé las tardes explorando los increíbles sitios históricos. Una experiencia única mezclar trabajo remoto con la rica historia romana.",
+      "My first stop as a digital nomad. I worked from cozy cafés and spent afternoons exploring historic landmarks. A unique experience mixing remote work with Italy’s rich history and cuisine.",
     images: [
       "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=600&h=400&fit=crop&q=80",
@@ -25,57 +25,191 @@ export const cities: CityData[] = [
     ],
   },
   {
-    id: "paris",
-    title: "París",
+    id: "france",
+    title: "France",
     imageUrl:
       "https://images.unsplash.com/photo-1431274172761-fca41d930114?w=400&h=250&fit=crop&q=80",
-    date: "Marzo 2024",
+    date: "March 2024",
     description:
-      "La ciudad de la luz se convirtió en mi oficina durante un mes. Entre meetings en video desde Montmartre y sesiones de código en el Marais, París me enseñó el equilibrio perfecto entre trabajo y arte de vivir.",
+      "France became my office for a month. Between video calls in Montmartre and coding sessions in the Marais, I learned how to balance productivity with the art of living.",
     images: [
       "https://images.unsplash.com/photo-1431274172761-fca41d930114?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1471623320832-752e8bbf8413?w=600&h=400&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1549144511-f099e773c147?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1508654041163-4615619b5c41?w=600&h=400&fit=crop&q=80",
     ],
   },
   {
-    id: "madrid",
-    title: "Madrid",
+    id: "spain",
+    title: "Spain",
     imageUrl:
       "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&h=250&fit=crop&q=80",
-    date: "Mayo 2024",
+    date: "May 2024",
     description:
-      "Madrid me recibió con sus brazos abiertos y su increíble vida nocturna. Trabajar desde Malasaña y Chueca fue una experiencia vibrante. La energía de la ciudad alimentaba mi creatividad cada día.",
+      "Spain welcomed me with its energy and nightlife. Working from creative districts like Malasaña and Chueca was vibrant and inspiring, fueling my creativity every day.",
     images: [
       "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=400&fit=crop&q=80",
     ],
   },
   {
-    id: "barcelona",
-    title: "Barcelona",
+    id: "hungary",
+    title: "Hungary",
     imageUrl:
       "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
-    date: "Julio 2024",
+    date: "July 2024",
     description:
-      "Barcelona combinó perfectamente playa y trabajo. Mis mañanas empezaban con código frente al mar Mediterráneo y las tardes explorando la arquitectura de Gaudí. Una ciudad que respira creatividad e innovación.",
+      "Hungary offered the perfect mix of history and productivity. Mornings coding near the Danube and afternoons exploring impressive architecture.",
     images: [
       "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&h=400&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517780280-96f0efd14480?w=600&h=400&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1548986673-6792a14af2d0?w=600&h=400&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1516449206424-9a4fd9a82e6e?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "romania",
+    title: "Romania",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "August 2024",
+    description:
+      "Castles, mountains, and reliable connectivity. Romania was ideal for switching between remote work and medieval escapes.",
+    images: [
+      "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1549144511-f099e773c147?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "czech-republic",
+    title: "Czech Republic",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "September 2024",
+    description:
+      "Peaceful cafés for focus and charming streets for evening walks. A great blend of tech scene and cultural richness.",
+    images: [
+      "https://images.unsplash.com/photo-1548986673-6792a14af2d0?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517780280-96f0efd14480?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "japan",
+    title: "Japan",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "October 2024",
+    description:
+      "High speed, order, and fascinating culture. Perfect for intense sprints of work and endless discoveries in the city.",
+    images: [
+      "https://images.unsplash.com/photo-1516449206424-9a4fd9a82e6e?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1520814572694-2749e3f453b3?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "portugal",
+    title: "Portugal",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "November 2024",
+    description:
+      "Sunny weather, delicious food, and active nomad communities. Great quality of life for both work and exploration.",
+    images: [
       "https://images.unsplash.com/photo-1546819462-7b8f1c83b7c8?w=600&h=400&fit=crop&q=80",
       "https://images.unsplash.com/photo-1543258935-abc0e9e89b03?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "turkey",
+    title: "Turkey",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "December 2024",
+    description:
+      "A bridge between cultures with vibrant markets and Bosphorus views. Constant inspiration between tasks and commits.",
+    images: [
+      "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1549144511-f099e773c147?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "thailand",
+    title: "Thailand",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "January 2025",
+    description:
+      "Beaches, incredible food, and buzzing coworking hubs. High productivity paired with nature and culture.",
+    images: [
+      "https://images.unsplash.com/photo-1517780280-96f0efd14480?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "cambodia",
+    title: "Cambodia",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "February 2025",
+    description:
+      "A slower pace of life and unique temples. A perfect place to unwind after work and recharge inspiration.",
+    images: [
+      "https://images.unsplash.com/photo-1548986673-6792a14af2d0?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1516449206424-9a4fd9a82e6e?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "vietnam",
+    title: "Vietnam",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "March 2025",
+    description:
+      "Great coffee shops and dynamic cities. Ideal for deep work cycles and food-filled evenings.",
+    images: [
+      "https://images.unsplash.com/photo-1520814572694-2749e3f453b3?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517780280-96f0efd14480?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "malaysia",
+    title: "Malaysia",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "April 2025",
+    description:
+      "A cultural blend with strong infrastructure. Perfect for alternating between city life and nature.",
+    images: [
+      "https://images.unsplash.com/photo-1546819462-7b8f1c83b7c8?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1543258935-abc0e9e89b03?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "indonesia",
+    title: "Indonesia",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "May 2025",
+    description:
+      "Remote communities, lush nature, and great weather. An inspiring base to keep motivation high.",
+    images: [
+      "https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1549144511-f099e773c147?w=600&h=400&fit=crop&q=80",
+    ],
+  },
+  {
+    id: "mexico",
+    title: "Mexico",
+    imageUrl:
+      "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=400&h=250&fit=crop&q=80",
+    date: "June 2025",
+    description:
+      "Colors, flavors, and a growing tech scene. Mexico offered an excellent base for both work and exploration.",
+    images: [
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=400&fit=crop&q=80",
     ],
   },
 ];
