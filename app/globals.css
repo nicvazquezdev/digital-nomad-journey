@@ -110,20 +110,49 @@ body {
   animation: propeller-spin 0.1s linear infinite;
 }
 
-/* Cards animation - move from right and stop before airplane */
-@keyframes card-slide-and-stop {
+/* Cards animations - each stops at different distances to avoid collision */
+@keyframes card-slide-and-stop-1 {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(
       calc(-80vw)
-    ); /* Move close to airplane position (around 10%) */
+    ); /* First card stops closest to airplane */
   }
 }
 
-.animate-card-slide {
-  animation: card-slide-and-stop 8s ease-out forwards;
+@keyframes card-slide-and-stop-2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(-65vw)
+    ); /* Second card stops before first card */
+  }
+}
+
+@keyframes card-slide-and-stop-3 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(-50vw)
+    ); /* Third card stops before second card */
+  }
+}
+
+@keyframes card-slide-and-stop-4 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      calc(-35vw)
+    ); /* Fourth card stops before third card */
+  }
 }
 
 /* Floating cards animation - slow drift from right to left and stop */

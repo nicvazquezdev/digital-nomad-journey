@@ -33,11 +33,12 @@ export default function FloatingCardsContainer({
       {cards.map((card, index) => (
         <div
           key={card.id}
-          className="absolute animate-card-slide"
+          className="absolute"
           style={{
             left: `100%`, // Start exactly at screen edge
             top: `${25 + index * 15}%`, // Stagger vertical positions to avoid overlap (25%, 40%, 55%, etc.)
             animationDelay: `${index === 0 ? 0 : index * 3}s`, // First card immediate, others staggered
+            animation: `card-slide-and-stop-${index + 1} 8s ease-out forwards`,
           }}
         >
           <FloatingCard
