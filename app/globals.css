@@ -190,6 +190,7 @@ body {
 
 .animate-float-gentle {
   animation: float-gentle 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
 }
 
 /* Funny disappearing animation */

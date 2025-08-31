@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { type CountryData } from "../data/countries";
 
 interface FloatingCardProps {
@@ -21,6 +21,8 @@ export default function FloatingCard({
   onDismiss,
 }: FloatingCardProps) {
   const [isDisappearing, setIsDisappearing] = useState(false);
+  const [isWobbling, setIsWobbling] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDismiss = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -32,6 +34,7 @@ export default function FloatingCard({
 
   return (
     <div
+      ref={cardRef}
       className={`
         relative
         bg-gradient-to-br from-amber-50 to-orange-100
@@ -45,13 +48,16 @@ export default function FloatingCard({
         border-8
         border-white
         cursor-pointer
-        animate-float-gentle
+        ${!isWobbling && !isDisappearing ? "animate-float-gentle" : ""}
+        ${isWobbling ? "animate-wobble" : ""}
         ${isDisappearing ? "animate-disappear-funny" : ""}
         ${className}
       `}
-      style={{
-        animationDelay: `${cardIndex * 0.2}s`,
-      }}
+      style={
+        {
+          "--float-delay": `${cardIndex * 0.2}s`,
+        } as React.CSSProperties & { "--float-delay": string }
+      }
       onClick={onClick}
     >
       {/* Postcard vintage texture overlay */}
@@ -61,13 +67,12 @@ export default function FloatingCard({
       {onDismiss && (
         <button
           onClick={handleDismiss}
-          className="absolute top-0 left-0 z-10 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
+          className="absolute top-0 left-0 z-20 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group"
           aria-label="Skip card"
-          onMouseEnter={(e) => {
-            const card = e.currentTarget.closest(".relative");
-            card?.classList.add("animate-wobble");
+          onMouseEnter={() => {
+            setIsWobbling(true);
             setTimeout(() => {
-              card?.classList.remove("animate-wobble");
+              setIsWobbling(false);
             }, 500);
           }}
         >

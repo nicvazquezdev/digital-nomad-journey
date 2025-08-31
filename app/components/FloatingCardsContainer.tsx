@@ -65,8 +65,11 @@ export default function FloatingCardsContainer({
     // Only allow dragging if the touch started on a card, not on the background
     const target = e.target as HTMLElement;
     const isOnCard = target.closest("[data-country-id]") !== null;
+    const isOnDismissButton =
+      target.closest("button[aria-label='Skip card']") !== null;
 
-    if (!isOnCard) return;
+    // Don't interfere with dismiss button interactions
+    if (!isOnCard || isOnDismissButton) return;
 
     // Prevent default touch behaviors (like scrolling) when starting drag on a card
     e.preventDefault();
@@ -111,8 +114,11 @@ export default function FloatingCardsContainer({
     // Only allow dragging if the click started on a card, not on the background
     const target = e.target as HTMLElement;
     const isOnCard = target.closest("[data-country-id]") !== null;
+    const isOnDismissButton =
+      target.closest("button[aria-label='Skip card']") !== null;
 
-    if (!isOnCard) return;
+    // Don't interfere with dismiss button interactions
+    if (!isOnCard || isOnDismissButton) return;
 
     // Prevent default mouse behaviors when starting drag on a card
     e.preventDefault();
@@ -207,6 +213,7 @@ export default function FloatingCardsContainer({
           top: `${
             30 + (originalIndex % 2) * 10 + Math.sin(originalIndex) * 5
           }%`,
+          zIndex: originalIndex + 1, // Ensure later cards are above earlier ones
           animationDelay: hasCompleted ? "0s" : `${2 + originalIndex * 4}s`,
           animation: hasCompleted
             ? "none"
