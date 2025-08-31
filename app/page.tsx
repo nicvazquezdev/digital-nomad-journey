@@ -129,16 +129,23 @@ function HomeContent() {
   const { canNavigatePrevious, canNavigateNext } = getNavigationState();
 
   return (
-    <div className="w-screen h-screen relative overflow-hidden">
+    <main className="w-screen h-screen relative overflow-hidden">
       <Sky className="z-0" />
 
-      <div className="fixed inset-0 z-10">
+      <div
+        className="fixed inset-0 z-10"
+        role="presentation"
+        aria-hidden="true"
+      >
         <CloudsContainer cloudCount={25} />
       </div>
 
       <MainTitle />
 
-      <div className="fixed inset-0 z-20">
+      <section
+        className="fixed inset-0 z-20"
+        aria-label="Interactive travel destinations"
+      >
         <FloatingCardsContainer
           onCardClick={handleCardClick}
           onDismissCard={handleDismissCard}
@@ -146,9 +153,16 @@ function HomeContent() {
         />
 
         <DragHint />
-      </div>
+      </section>
 
-      <Airplane size="large" position={{ x: 10, y: 40 }} />
+      <div
+        className="fixed"
+        style={{ left: "10%", top: "40%" }}
+        role="presentation"
+        aria-hidden="true"
+      >
+        <Airplane size="large" position={{ x: 10, y: 40 }} />
+      </div>
 
       <DigitalNomadModal
         country={selectedCountry}
@@ -159,7 +173,35 @@ function HomeContent() {
         canNavigatePrevious={canNavigatePrevious}
         canNavigateNext={canNavigateNext}
       />
-    </div>
+
+      {/* Hidden content for SEO */}
+      <div className="sr-only">
+        <h1>Nicolas Vazquez - Digital Nomad Journey</h1>
+        <p>
+          Welcome to my digital nomad journey! I&apos;m Nicolas Vazquez, and
+          I&apos;ve traveled to over 16 countries as a remote worker and digital
+          nomad. Explore my authentic travel experiences, photography, and
+          honest destination reviews from Japan, Thailand, Portugal, Hungary,
+          and many more incredible places.
+        </p>
+        <h2>Countries I&apos;ve Visited as a Digital Nomad</h2>
+        <ul>
+          {countries.map((country) => (
+            <li key={country.id}>
+              <strong>{country.title}</strong> - {country.date}:{" "}
+              {country.description.substring(0, 100)}...
+            </li>
+          ))}
+        </ul>
+        <h2>Digital Nomad Travel Topics</h2>
+        <p>
+          Remote work, solo travel, backpacking, cultural experiences, travel
+          photography, destination guides, nomad lifestyle, Southeast Asia
+          travel, European adventures, travel tips, and authentic travel
+          stories.
+        </p>
+      </div>
+    </main>
   );
 }
 
