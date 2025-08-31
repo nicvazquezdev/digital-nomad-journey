@@ -157,8 +157,8 @@ export default function DigitalNomadModal({
           </svg>
         </button>
 
-        {/* Header */}
-        <div className="relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
+        {/* Header - Fixed on desktop, scrollable on mobile */}
+        <div className="hidden md:block relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
           <Image
             src={getDefaultImageUrl(country)}
             alt={country.title}
@@ -177,27 +177,52 @@ export default function DigitalNomadModal({
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-hidden flex flex-col">
-          {/* Description - Fixed section */}
-          <div className="px-8 py-4 flex-shrink-0">
-            <p className="md:text-lg text-gray-700 leading-relaxed">
-              {isDescriptionExpanded
-                ? country.description
-                : getTruncatedText(country.description)}
-            </p>
-            {shouldShowToggle(country.description) && (
-              <button
-                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                className="mt-2 text-amber-600 hover:text-amber-700 font-medium text-sm transition-colors duration-200 underline decoration-dotted underline-offset-2 cursor-pointer"
-              >
-                {isDescriptionExpanded ? "Show less" : "Show more"}
-              </button>
-            )}
+        {/* Content - Scrollable section that includes header on mobile, description and gallery */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Header for mobile - Inside scrollable area */}
+          <div className="md:hidden relative h-64 overflow-hidden rounded-t-2xl flex-shrink-0">
+            <Image
+              src={getDefaultImageUrl(country)}
+              alt={country.title}
+              fill
+              className="object-cover"
+              sizes="800px"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-100/30 via-transparent to-orange-200/40 mix-blend-overlay" />
+
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+              <h1 className="text-4xl font-bold text-white font-serif mb-2">
+                {country.title}
+              </h1>
+              <p className="text-xl text-amber-100 font-medium">
+                {country.date}
+              </p>
+            </div>
           </div>
 
-          {/* Image Gallery - Scrollable section */}
-          <div className="flex-1 overflow-y-auto px-8 pb-8">
+          {/* Description and Gallery */}
+          <div className="px-8 py-4 pb-8">
+            {/* Description */}
+            <div className="mb-6">
+              <p className="md:text-lg text-gray-700 leading-relaxed">
+                {isDescriptionExpanded
+                  ? country.description
+                  : getTruncatedText(country.description)}
+              </p>
+              {shouldShowToggle(country.description) && (
+                <button
+                  onClick={() =>
+                    setIsDescriptionExpanded(!isDescriptionExpanded)
+                  }
+                  className="mt-2 text-amber-600 hover:text-amber-700 font-medium text-sm transition-colors duration-200 underline decoration-dotted underline-offset-2 cursor-pointer"
+                >
+                  {isDescriptionExpanded ? "Show less" : "Show more"}
+                </button>
+              )}
+            </div>
+
+            {/* Image Gallery */}
             <ImageGallery countryId={country.id} countryTitle={country.title} />
           </div>
         </div>
