@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { IMAGE_MAPPING } from "../../../data/images";
 
 export async function GET(
   request: NextRequest,
@@ -9,33 +8,13 @@ export async function GET(
   try {
     const { country } = await params;
 
-    // Path to the country's image folder
-    const imagesPath = path.join(process.cwd(), "public", "assets", country);
-
-    // Check if directory exists
-    if (!fs.existsSync(imagesPath)) {
+    // Check if country exists in our static mapping
+    if (!IMAGE_MAPPING[country]) {
       return NextResponse.json({ error: "Country not found" }, { status: 404 });
     }
 
-    // Read all files from the directory
-    const files = fs.readdirSync(imagesPath);
-
-    // Filter for image files only
-    const imageFiles = files.filter((file) => {
-      const ext = path.extname(file).toLowerCase();
-      return [
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".webp",
-        ".JPG",
-        ".JPEG",
-        ".PNG",
-      ].includes(ext);
-    });
-
-    // Convert to full URLs
-    const imageUrls = imageFiles.map((file) => `/assets/${country}/${file}`);
+    // Get images from static mapping
+    const imageUrls = IMAGE_MAPPING[country];
 
     return NextResponse.json({
       country,
@@ -43,7 +22,7 @@ export async function GET(
       count: imageUrls.length,
     });
   } catch (error) {
-    console.error("Error reading images:", error);
+    console.error("Error getting images:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },
