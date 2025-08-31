@@ -1,7 +1,32 @@
 {
-  "name": "digital-nomad",
-  "version": "0.1.0",
-  "private": true,
+  "name": "digital-nomad-journey",
+  "version": "1.0.0",
+  "description": "An interactive web application showcasing authentic travel experiences from a digital nomad's journey across 16+ countries",
+  "keywords": [
+    "digital-nomad",
+    "travel",
+    "photography",
+    "nextjs",
+    "travel-blog",
+    "interactive",
+    "portfolio",
+    "travel-experiences",
+    "backpacking",
+    "nomad-lifestyle"
+  ],
+  "author": {
+    "name": "Nicolas Vazquez",
+    "url": "https://github.com/nicvazquezdev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicvazquezdev/digital-nomad-journey.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicvazquezdev/digital-nomad-journey/issues"
+  },
+  "homepage": "https://digital-nomad-journey.vercel.app",
   "scripts": {
     "dev": "npm run generate:images && next dev --turbopack",
     "build": "npm run generate:images && next build --turbopack",

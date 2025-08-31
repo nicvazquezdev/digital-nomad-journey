@@ -49,7 +49,8 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://traveler-journey.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://digital-nomad-journey.vercel.app",
   ),
   alternates: {
     canonical: "/",

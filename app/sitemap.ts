@@ -3,7 +3,8 @@ import { countries } from "./data/countries";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://traveler-journey.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://digital-nomad-journey.vercel.app";
 
   // Main pages
   const routes = [
