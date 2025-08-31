@@ -202,7 +202,7 @@ export default function ImageGallery({
                 e.stopPropagation();
                 setSelectedImage(null);
               }}
-              className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200"
+              className="absolute top-4 right-4 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200 cursor-pointer"
             >
               <svg
                 className="w-6 h-6 text-white"
@@ -229,7 +229,7 @@ export default function ImageGallery({
                       selectedImage > 0 ? selectedImage - 1 : images.length - 1,
                     );
                   }}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200 cursor-pointer"
                 >
                   <svg
                     className="w-6 h-6 text-white"
@@ -253,7 +253,7 @@ export default function ImageGallery({
                       selectedImage < images.length - 1 ? selectedImage + 1 : 0,
                     );
                   }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors duration-200 cursor-pointer"
                 >
                   <svg
                     className="w-6 h-6 text-white"

@@ -92,7 +92,7 @@ export default function DigitalNomadModal({
       {canNavigatePrevious && onNavigatePrevious && (
         <button
           onClick={onNavigatePrevious}
-          className="absolute left-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group"
+          className="absolute left-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group cursor-pointer"
           aria-label="Previous country"
         >
           <svg
@@ -115,7 +115,7 @@ export default function DigitalNomadModal({
       {canNavigateNext && onNavigateNext && (
         <button
           onClick={onNavigateNext}
-          className="absolute right-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group"
+          className="absolute right-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group cursor-pointer"
           aria-label="Next country"
         >
           <svg
@@ -139,7 +139,7 @@ export default function DigitalNomadModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
+          className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 cursor-pointer"
           aria-label="Close modal"
         >
           <svg

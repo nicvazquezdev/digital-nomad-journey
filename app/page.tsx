@@ -31,7 +31,7 @@ export default function Home() {
     setDismissedCards((prev) => new Set([...prev, countryId]));
   };
 
-  // Navigation functions for modal
+  // Navigation functions for modal (circular navigation)
   const handleNavigatePrevious = () => {
     if (!selectedCountry) return;
 
@@ -42,7 +42,10 @@ export default function Home() {
       (country) => country.id === selectedCountry.id,
     );
 
-    if (currentIndex > 0) {
+    // Circular navigation: if at first, go to last
+    if (currentIndex === 0) {
+      setSelectedCountry(visibleCountries[visibleCountries.length - 1]);
+    } else {
       setSelectedCountry(visibleCountries[currentIndex - 1]);
     }
   };
@@ -57,12 +60,15 @@ export default function Home() {
       (country) => country.id === selectedCountry.id,
     );
 
-    if (currentIndex < visibleCountries.length - 1) {
+    // Circular navigation: if at last, go to first
+    if (currentIndex === visibleCountries.length - 1) {
+      setSelectedCountry(visibleCountries[0]);
+    } else {
       setSelectedCountry(visibleCountries[currentIndex + 1]);
     }
   };
 
-  // Check if navigation is possible
+  // Check if navigation is possible (always true for circular navigation)
   const getNavigationState = () => {
     if (!selectedCountry)
       return { canNavigatePrevious: false, canNavigateNext: false };
@@ -70,13 +76,13 @@ export default function Home() {
     const visibleCountries = countries.filter(
       (country) => !dismissedCards.has(country.id),
     );
-    const currentIndex = visibleCountries.findIndex(
-      (country) => country.id === selectedCountry.id,
-    );
+
+    // Navigation is always possible if there's more than one country
+    const hasMultipleCountries = visibleCountries.length > 1;
 
     return {
-      canNavigatePrevious: currentIndex > 0,
-      canNavigateNext: currentIndex < visibleCountries.length - 1,
+      canNavigatePrevious: hasMultipleCountries,
+      canNavigateNext: hasMultipleCountries,
     };
   };
 
