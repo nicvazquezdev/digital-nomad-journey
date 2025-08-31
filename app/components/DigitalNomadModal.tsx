@@ -135,7 +135,7 @@ export default function DigitalNomadModal({
       )}
 
       {/* Modal Content */}
-      <div className="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] border-4 border-white flex flex-col">
+      <div className="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] flex flex-col">
         {/* Close Button */}
         <button
           onClick={onClose}
