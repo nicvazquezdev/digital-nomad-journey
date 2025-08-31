@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useImages } from "../hooks/useImages";
 
 interface ImageGalleryProps {
-  images: string[];
+  cityId: string;
   cityTitle: string;
 }
 
-export default function ImageGallery({ images, cityTitle }: ImageGalleryProps) {
+export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
+  const { images, loading, error } = useImages(cityId);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
@@ -41,7 +43,30 @@ export default function ImageGallery({ images, cityTitle }: ImageGalleryProps) {
     return "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw";
   };
 
-  if (!images || images.length === 0) return null;
+  if (loading) {
+    return (
+      <div className="mb-6 flex justify-center items-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+        <span className="ml-2 text-gray-600">Loading images...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+        <p className="text-red-600">Error loading images: {error}</p>
+      </div>
+    );
+  }
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+        <p className="text-gray-600">No images found for {cityTitle}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-6">

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { CityData } from "../data/cities";
+import { CityData, getDefaultImageUrl } from "../data/cities";
 import { useEffect } from "react";
 import ImageGallery from "./ImageGallery";
 
@@ -72,7 +72,7 @@ export default function DigitalNomadModal({
         {/* Header */}
         <div className="relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
           <Image
-            src={city.imageUrl}
+            src={getDefaultImageUrl(city)}
             alt={city.title}
             fill
             className="object-cover"
@@ -98,7 +98,7 @@ export default function DigitalNomadModal({
 
           {/* Image Gallery - Scrollable section */}
           <div className="flex-1 overflow-y-auto px-8 pb-8">
-            <ImageGallery images={city.images} cityTitle={city.title} />
+            <ImageGallery cityId={city.id} cityTitle={city.title} />
           </div>
         </div>
       </div>

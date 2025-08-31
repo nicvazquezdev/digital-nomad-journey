@@ -1,5 +1,5 @@
 import FloatingCard from "./FloatingCard";
-import { cities, type CityData } from "../data/cities";
+import { cities, type CityData, getDefaultImageUrl } from "../data/cities";
 import { useRef, useState, useEffect, useCallback, CSSProperties } from "react";
 
 interface FloatingCardsContainerProps {
@@ -234,7 +234,7 @@ export default function FloatingCardsContainer({
           >
             <FloatingCard
               title={city.title}
-              content={city.imageUrl}
+              content={getDefaultImageUrl(city)}
               cardIndex={visibleIndex}
               onClick={() => handleCardClick(city)}
               onDismiss={() => onDismissCard?.(city.id)}
