@@ -16,7 +16,7 @@ export default function MainTitle() {
 
   return (
     <div
-      className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-30 transition-all duration-500 ease-out ${
+      className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-30 transition-all duration-500 ease-out w-full ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
       }`}
     >

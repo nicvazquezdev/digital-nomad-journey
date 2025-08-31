@@ -8,6 +8,7 @@ import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
 import DragHint from "./components/DragHint";
+import GitHubLink from "./components/GitHubLink";
 import MainTitle from "./components/MainTitle";
 import { type CountryData, countries } from "./data/countries";
 
@@ -152,7 +153,11 @@ function HomeContent() {
           dismissedCards={dismissedCards}
         />
 
-        <DragHint />
+        {/* Bottom UI elements */}
+        <div className="absolute bottom-6 right-6 flex items-center gap-3">
+          <GitHubLink />
+          <DragHint />
+        </div>
       </section>
 
       <div

@@ -1,6 +1,6 @@
 export default function DragHint() {
   return (
-    <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-white/50 max-w-xs">
+    <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg border border-white/50 max-w-xs">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1">
           {/* Drag icon */}
