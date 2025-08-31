@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useImages } from "../hooks/useImages";
 
 interface ImageGalleryProps {
@@ -20,6 +20,41 @@ export default function ImageGallery({
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => new Set([...prev, index]));
   };
+
+  // Handle keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle keyboard events when lightbox is open
+      if (selectedImage === null || !images || images.length === 0) return;
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedImage(
+          selectedImage > 0 ? selectedImage - 1 : images.length - 1,
+        );
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedImage(
+          selectedImage < images.length - 1 ? selectedImage + 1 : 0,
+        );
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage !== null) {
+      // Use capture: true to ensure this handler runs before the modal's handler
+      document.addEventListener("keydown", handleKeyDown, { capture: true });
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown, { capture: true });
+    };
+  }, [selectedImage, images]);
 
   const getGridLayoutClass = (imageCount: number) => {
     if (imageCount === 1) return "grid-cols-1 max-w-2xl mx-auto";
@@ -148,7 +183,10 @@ export default function ImageGallery({
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-4xl max-h-[90vh] w-full h-full">
+          <div
+            className="relative max-w-4xl max-h-[90vh] w-full h-full"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Image
               src={images[selectedImage]}
               alt={`${countryTitle} - Image ${selectedImage + 1}`}
