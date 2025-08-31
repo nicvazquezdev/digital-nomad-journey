@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { CountryData, getDefaultImageUrl } from "../data/countries";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ImageGallery from "./ImageGallery";
 
 interface DigitalNomadModalProps {
@@ -24,6 +24,23 @@ export default function DigitalNomadModal({
   canNavigatePrevious = false,
   canNavigateNext = false,
 }: DigitalNomadModalProps) {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  // Reset description expansion when country changes
+  useEffect(() => {
+    setIsDescriptionExpanded(false);
+  }, [country?.id]);
+
+  // Helper function to truncate text
+  const getTruncatedText = (text: string, maxLength: number = 200) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + "...";
+  };
+
+  const shouldShowToggle = (text: string, maxLength: number = 200) => {
+    return text.length > maxLength;
+  };
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -163,9 +180,21 @@ export default function DigitalNomadModal({
         {/* Content */}
         <div className="flex-1 overflow-hidden flex flex-col">
           {/* Description - Fixed section */}
-          <p className="px-8 py-4 md:text-lg text-gray-700 leading-relaxed flex-shrink-0">
-            {country.description}
-          </p>
+          <div className="px-8 py-4 flex-shrink-0">
+            <p className="md:text-lg text-gray-700 leading-relaxed">
+              {isDescriptionExpanded
+                ? country.description
+                : getTruncatedText(country.description)}
+            </p>
+            {shouldShowToggle(country.description) && (
+              <button
+                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                className="mt-2 text-amber-600 hover:text-amber-700 font-medium text-sm transition-colors duration-200 underline decoration-dotted underline-offset-2 cursor-pointer"
+              >
+                {isDescriptionExpanded ? "Show less" : "Show more"}
+              </button>
+            )}
+          </div>
 
           {/* Image Gallery - Scrollable section */}
           <div className="flex-1 overflow-y-auto px-8 pb-8">

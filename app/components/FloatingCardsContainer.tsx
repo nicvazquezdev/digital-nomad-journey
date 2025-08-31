@@ -192,7 +192,6 @@ export default function FloatingCardsContainer({
       style={{
         transform: `translateX(${currentOffset}px)`,
         transition: isDragging ? "none" : "transform 0.3s ease-out",
-        cursor: isDragging ? "grabbing" : "grab",
         touchAction: "none", // Prevent default touch behaviors
         userSelect: "none", // Prevent text selection during drag
       }}
