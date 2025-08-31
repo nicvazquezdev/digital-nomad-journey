@@ -7,6 +7,7 @@ import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
 import DragHint from "./components/DragHint";
+import MainTitle from "./components/MainTitle";
 import { type CountryData, countries } from "./data/countries";
 
 export default function Home() {
@@ -83,15 +84,14 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen relative overflow-hidden">
-      {/* Full page sky background */}
       <Sky className="z-0" />
 
-      {/* Full page clouds */}
       <div className="fixed inset-0 z-10">
         <CloudsContainer cloudCount={25} />
       </div>
 
-      {/* Floating cards */}
+      <MainTitle />
+
       <div className="fixed inset-0 z-20">
         <FloatingCardsContainer
           onCardClick={handleCardClick}

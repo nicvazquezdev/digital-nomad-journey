@@ -42,6 +42,7 @@ export default function Airplane({
           src="/avatar.png"
           alt="Avatar standing on airplane"
           className="object-contain md:mt-1"
+          priority
           width={24}
           height={24}
         />
