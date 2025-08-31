@@ -72,7 +72,15 @@ export default function ImageGallery({
   }
 
   return (
-    <div className="mb-6">
+    <div className="">
+      {/* Gallery summary for many images */}
+      {images.length > 8 && (
+        <div className="my-4">
+          <p className="text-sm text-gray-600 italic">
+            A collection of {images.length} special moments from {countryTitle}
+          </p>
+        </div>
+      )}
       <div className={`grid gap-4 ${getGridLayoutClass(images.length)}`}>
         {images.map((imageUrl, index) => (
           <div
@@ -133,30 +141,6 @@ export default function ImageGallery({
           </div>
         ))}
       </div>
-
-      {/* Gallery summary for many images */}
-      {images.length > 8 && (
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600 italic">
-            A collection of {images.length} special moments from {countryTitle}
-          </p>
-        </div>
-      )}
-
-      {/* Load progress indicator for many images */}
-      {images.length > 6 && (
-        <div className="mt-3 text-center">
-          <div className="text-xs text-gray-500">
-            Loaded: {loadedImages.size} of {images.length} images
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
-            <div
-              className="bg-amber-400 h-1 rounded-full transition-all duration-300"
-              style={{ width: `${(loadedImages.size / images.length) * 100}%` }}
-            />
-          </div>
-        </div>
-      )}
 
       {/* Image lightbox */}
       {selectedImage !== null && (
