@@ -6,6 +6,7 @@ import CloudsContainer from "./components/CloudsContainer";
 import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
+import DragHint from "./components/DragHint";
 import { type CountryData, countries } from "./data/countries";
 
 export default function Home() {
@@ -97,6 +98,8 @@ export default function Home() {
           onDismissCard={handleDismissCard}
           dismissedCards={dismissedCards}
         />
+
+        <DragHint />
       </div>
 
       <Airplane size="large" position={{ x: 10, y: 40 }} />
