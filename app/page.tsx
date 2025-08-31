@@ -6,34 +6,36 @@ import CloudsContainer from "./components/CloudsContainer";
 import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
-import { type CityData, cities } from "./data/cities";
+import { type CountryData, countries } from "./data/countries";
 import { preloadAllImages } from "./hooks/useImages";
 
 export default function Home() {
-  const [selectedCity, setSelectedCity] = useState<CityData | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(
+    null,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dismissedCards, setDismissedCards] = useState<Set<string>>(new Set());
 
-  // Precargar todas las imágenes al inicio
+  // Preload all images at startup
   useEffect(() => {
-    const cityIds = cities.map((city) => city.id);
-    preloadAllImages(cityIds).catch((error) => {
+    const countryIds = countries.map((country) => country.id);
+    preloadAllImages(countryIds).catch((error) => {
       console.warn("Failed to preload some images:", error);
     });
   }, []);
 
-  const handleCardClick = (city: CityData) => {
-    setSelectedCity(city);
+  const handleCardClick = (country: CountryData) => {
+    setSelectedCountry(country);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedCity(null);
+    setSelectedCountry(null);
   };
 
-  const handleDismissCard = (cityId: string) => {
-    setDismissedCards((prev) => new Set([...prev, cityId]));
+  const handleDismissCard = (countryId: string) => {
+    setDismissedCards((prev) => new Set([...prev, countryId]));
   };
 
   return (
@@ -58,7 +60,7 @@ export default function Home() {
       <Airplane size="large" position={{ x: 10, y: 40 }} />
 
       <DigitalNomadModal
-        city={selectedCity}
+        country={selectedCountry}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />

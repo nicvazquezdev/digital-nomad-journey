@@ -1,11 +1,15 @@
 import FloatingCard from "./FloatingCard";
-import { cities, type CityData, getDefaultImageUrl } from "../data/cities";
+import {
+  countries,
+  type CountryData,
+  getDefaultImageUrl,
+} from "../data/countries";
 import { useRef, useState, useEffect, useCallback, CSSProperties } from "react";
 
 interface FloatingCardsContainerProps {
   className?: string;
-  onCardClick?: (city: CityData) => void;
-  onDismissCard?: (cityId: string) => void;
+  onCardClick?: (country: CountryData) => void;
+  onDismissCard?: (countryId: string) => void;
   dismissedCards?: Set<string>;
   baseVw?: number;
   stepVw?: number;
@@ -48,19 +52,19 @@ export default function FloatingCardsContainer({
   );
 
   const handleAnimationEnd = (
-    cityId: string,
+    countryId: string,
     originalIndex: number,
     el: HTMLElement,
   ) => {
     el.style.transform = slotTransformByOriginalIndex(originalIndex);
-    setAnimatedCards((prev) => new Set([...prev, cityId]));
+    setAnimatedCards((prev) => new Set([...prev, countryId]));
   };
 
   // Touch event handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     // Only allow dragging if the touch started on a card, not on the background
     const target = e.target as HTMLElement;
-    const isOnCard = target.closest("[data-city-id]") !== null;
+    const isOnCard = target.closest("[data-country-id]") !== null;
 
     if (!isOnCard) return;
 
@@ -106,7 +110,7 @@ export default function FloatingCardsContainer({
   const handleMouseDown = (e: React.MouseEvent) => {
     // Only allow dragging if the click started on a card, not on the background
     const target = e.target as HTMLElement;
-    const isOnCard = target.closest("[data-city-id]") !== null;
+    const isOnCard = target.closest("[data-country-id]") !== null;
 
     if (!isOnCard) return;
 
@@ -144,29 +148,31 @@ export default function FloatingCardsContainer({
   };
 
   // Custom click handler that prevents clicks after dragging
-  const handleCardClick = (city: CityData) => {
+  const handleCardClick = (country: CountryData) => {
     // Only trigger click if there was no significant drag movement
     if (!hasDragged && onCardClick) {
-      onCardClick(city);
+      onCardClick(country);
     }
   };
 
   useEffect(() => {
     if (dismissedCards.size === 0) return;
-    const visible = cities.filter((c) => !dismissedCards.has(c.id));
-    visible.forEach((city, visibleIndex) => {
-      if (!animatedCards.has(city.id) || !containerRef.current) return;
+    const visible = countries.filter((c) => !dismissedCards.has(c.id));
+    visible.forEach((country, visibleIndex) => {
+      if (!animatedCards.has(country.id) || !containerRef.current) return;
       const el = containerRef.current.querySelector(
-        `[data-city-id="${city.id}"]`,
+        `[data-country-id="${country.id}"]`,
       ) as HTMLElement | null;
       if (!el) return;
-      const originalIndex = cities.findIndex((c) => c.id === city.id);
+      const originalIndex = countries.findIndex((c) => c.id === country.id);
       el.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
       el.style.transform = targetTransform(originalIndex, visibleIndex);
     });
   }, [dismissedCards, animatedCards, targetTransform]);
 
-  const visibleCities = cities.filter((city) => !dismissedCards.has(city.id));
+  const visibleCountries = countries.filter(
+    (country) => !dismissedCards.has(country.id),
+  );
 
   // Calculate real-time offset during drag
   const currentOffset = isDragging
@@ -192,9 +198,9 @@ export default function FloatingCardsContainer({
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp} // End drag if mouse leaves container
     >
-      {visibleCities.map((city, visibleIndex) => {
-        const originalIndex = cities.findIndex((c) => c.id === city.id);
-        const hasCompleted = animatedCards.has(city.id);
+      {visibleCountries.map((country, visibleIndex) => {
+        const originalIndex = countries.findIndex((c) => c.id === country.id);
+        const hasCompleted = animatedCards.has(country.id);
 
         const style: CSSProperties = {
           left: `calc(100% + ${100 + originalIndex * hSpacingPx}px)`,
@@ -218,14 +224,14 @@ export default function FloatingCardsContainer({
 
         return (
           <div
-            key={city.id}
-            data-city-id={city.id}
+            key={country.id}
+            data-country-id={country.id}
             className="absolute pointer-events-auto"
             style={style}
             onAnimationEnd={(e) => {
               if (!hasCompleted) {
                 handleAnimationEnd(
-                  city.id,
+                  country.id,
                   originalIndex,
                   e.currentTarget as HTMLElement,
                 );
@@ -233,12 +239,11 @@ export default function FloatingCardsContainer({
             }}
           >
             <FloatingCard
-              title={city.title}
-              content={getDefaultImageUrl(city)}
+              title={country.title}
+              content={getDefaultImageUrl(country)}
               cardIndex={visibleIndex}
-              onClick={() => handleCardClick(city)}
-              onDismiss={() => onDismissCard?.(city.id)}
-              city={city}
+              onClick={() => handleCardClick(country)}
+              onDismiss={() => onDismissCard?.(country.id)}
             />
           </div>
         );

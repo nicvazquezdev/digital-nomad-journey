@@ -1,42 +1,42 @@
 import { useState, useEffect } from "react";
 
 interface ImageResponse {
-  city: string;
+  country: string;
   images: string[];
   count: number;
 }
 
-// Cache global para almacenar las imágenes por ciudad
+// Global cache to store images by country
 const imageCache = new Map<string, string[]>();
 const loadingCache = new Set<string>();
 
-export function useImages(cityId: string) {
-  // Inicializar estados basándose en si ya está en caché
+export function useImages(countryId: string) {
+  // Initialize states based on whether it's already cached
   const [images, setImages] = useState<string[]>(() =>
-    cityId && imageCache.has(cityId) ? imageCache.get(cityId)! : [],
+    countryId && imageCache.has(countryId) ? imageCache.get(countryId)! : [],
   );
   const [loading, setLoading] = useState(() =>
-    cityId && imageCache.has(cityId) ? false : true,
+    countryId && imageCache.has(countryId) ? false : true,
   );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!cityId) return;
+    if (!countryId) return;
 
-    // Si ya tenemos las imágenes en caché, usarlas inmediatamente
-    if (imageCache.has(cityId)) {
-      setImages(imageCache.get(cityId)!);
+    // If we already have the images in cache, use them immediately
+    if (imageCache.has(countryId)) {
+      setImages(imageCache.get(countryId)!);
       setLoading(false);
       setError(null);
       return;
     }
 
-    // Si ya se está cargando esta ciudad, esperar
-    if (loadingCache.has(cityId)) {
-      // Polling para verificar cuando termine de cargar
+    // If this country is already being loaded, wait
+    if (loadingCache.has(countryId)) {
+      // Polling to check when it finishes loading
       const pollInterval = setInterval(() => {
-        if (imageCache.has(cityId)) {
-          setImages(imageCache.get(cityId)!);
+        if (imageCache.has(countryId)) {
+          setImages(imageCache.get(countryId)!);
           setLoading(false);
           setError(null);
           clearInterval(pollInterval);
@@ -46,17 +46,17 @@ export function useImages(cityId: string) {
       return () => clearInterval(pollInterval);
     }
 
-    // Solo establecer loading si no estaba en caché inicialmente
-    if (!imageCache.has(cityId)) {
+    // Only set loading if it wasn't initially cached
+    if (!imageCache.has(countryId)) {
       setLoading(true);
     }
     setError(null);
 
     const fetchImages = async () => {
       try {
-        loadingCache.add(cityId);
+        loadingCache.add(countryId);
 
-        const response = await fetch(`/api/images/${cityId}`);
+        const response = await fetch(`/api/images/${countryId}`);
 
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
@@ -64,8 +64,8 @@ export function useImages(cityId: string) {
 
         const data: ImageResponse = await response.json();
 
-        // Guardar en caché
-        imageCache.set(cityId, data.images);
+        // Save to cache
+        imageCache.set(countryId, data.images);
         setImages(data.images);
         setLoading(false);
       } catch (err) {
@@ -75,36 +75,36 @@ export function useImages(cityId: string) {
         setImages([]);
         setLoading(false);
       } finally {
-        loadingCache.delete(cityId);
+        loadingCache.delete(countryId);
       }
     };
 
     fetchImages();
-  }, [cityId]);
+  }, [countryId]);
 
   return { images, loading, error };
 }
 
-// Función para precargar imágenes de todas las ciudades
-export async function preloadAllImages(cityIds: string[]) {
-  const promises = cityIds.map(async (cityId) => {
-    if (imageCache.has(cityId)) return; // Ya está en caché
+// Function to preload images from all countries
+export async function preloadAllImages(countryIds: string[]) {
+  const promises = countryIds.map(async (countryId) => {
+    if (imageCache.has(countryId)) return; // Already cached
 
     try {
-      const response = await fetch(`/api/images/${cityId}`);
+      const response = await fetch(`/api/images/${countryId}`);
       if (response.ok) {
         const data: ImageResponse = await response.json();
-        imageCache.set(cityId, data.images);
+        imageCache.set(countryId, data.images);
       }
     } catch (error) {
-      console.warn(`Failed to preload images for ${cityId}:`, error);
+      console.warn(`Failed to preload images for ${countryId}:`, error);
     }
   });
 
   await Promise.all(promises);
 }
 
-// Función para limpiar el caché si es necesario
+// Function to clear cache if necessary
 export function clearImageCache() {
   imageCache.clear();
   loadingCache.clear();

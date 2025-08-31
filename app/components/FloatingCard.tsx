@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { type CityData } from "../data/cities";
+import { type CountryData } from "../data/countries";
 
 interface FloatingCardProps {
   title: string;
@@ -9,7 +9,7 @@ interface FloatingCardProps {
   className?: string;
   onClick?: () => void;
   onDismiss?: () => void;
-  city?: CityData;
+  country?: CountryData;
 }
 
 export default function FloatingCard({
@@ -19,7 +19,6 @@ export default function FloatingCard({
   className = "",
   onClick,
   onDismiss,
-  city,
 }: FloatingCardProps) {
   const [isDisappearing, setIsDisappearing] = useState(false);
 
@@ -63,7 +62,7 @@ export default function FloatingCard({
         <button
           onClick={handleDismiss}
           className="absolute top-0 left-0 z-10 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group hover:animate-wobble"
-          aria-label="Omitir tarjeta"
+          aria-label="Skip card"
           onMouseEnter={(e) => {
             const card = e.currentTarget.closest(".relative");
             card?.classList.add("animate-wobble");
@@ -88,7 +87,7 @@ export default function FloatingCard({
         </button>
       )}
 
-      {/* City Image */}
+      {/* Country Image */}
       <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
         <Image
           src={content}

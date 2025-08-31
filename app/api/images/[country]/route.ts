@@ -4,17 +4,17 @@ import path from "path";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ city: string }> },
+  { params }: { params: Promise<{ country: string }> },
 ) {
   try {
-    const { city } = await params;
+    const { country } = await params;
 
-    // Path to the city's image folder
-    const imagesPath = path.join(process.cwd(), "public", "assets", city);
+    // Path to the country's image folder
+    const imagesPath = path.join(process.cwd(), "public", "assets", country);
 
     // Check if directory exists
     if (!fs.existsSync(imagesPath)) {
-      return NextResponse.json({ error: "City not found" }, { status: 404 });
+      return NextResponse.json({ error: "Country not found" }, { status: 404 });
     }
 
     // Read all files from the directory
@@ -35,10 +35,10 @@ export async function GET(
     });
 
     // Convert to full URLs
-    const imageUrls = imageFiles.map((file) => `/assets/${city}/${file}`);
+    const imageUrls = imageFiles.map((file) => `/assets/${country}/${file}`);
 
     return NextResponse.json({
-      city,
+      country,
       images: imageUrls,
       count: imageUrls.length,
     });

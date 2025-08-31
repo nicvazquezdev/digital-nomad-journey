@@ -1,18 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { CityData, getDefaultImageUrl } from "../data/cities";
+import { CountryData, getDefaultImageUrl } from "../data/countries";
 import { useEffect } from "react";
 import ImageGallery from "./ImageGallery";
 
 interface DigitalNomadModalProps {
-  city: CityData | null;
+  country: CountryData | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
 export default function DigitalNomadModal({
-  city,
+  country,
   isOpen,
   onClose,
 }: DigitalNomadModalProps) {
@@ -36,7 +36,7 @@ export default function DigitalNomadModal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || !city) return null;
+  if (!isOpen || !country) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -52,7 +52,7 @@ export default function DigitalNomadModal({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110"
-          aria-label="Cerrar modal"
+          aria-label="Close modal"
         >
           <svg
             className="w-6 h-6 text-gray-700"
@@ -72,8 +72,8 @@ export default function DigitalNomadModal({
         {/* Header */}
         <div className="relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
           <Image
-            src={getDefaultImageUrl(city)}
-            alt={city.title}
+            src={getDefaultImageUrl(country)}
+            alt={country.title}
             fill
             className="object-cover"
             sizes="800px"
@@ -83,9 +83,9 @@ export default function DigitalNomadModal({
 
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
             <h1 className="text-4xl font-bold text-white font-serif mb-2">
-              {city.title}
+              {country.title}
             </h1>
-            <p className="text-xl text-amber-100 font-medium">{city.date}</p>
+            <p className="text-xl text-amber-100 font-medium">{country.date}</p>
           </div>
         </div>
 
@@ -93,12 +93,12 @@ export default function DigitalNomadModal({
         <div className="flex-1 overflow-hidden flex flex-col">
           {/* Description - Fixed section */}
           <p className="px-8 py-4 md:text-lg text-gray-700 leading-relaxed flex-shrink-0">
-            {city.description}
+            {country.description}
           </p>
 
           {/* Image Gallery - Scrollable section */}
           <div className="flex-1 overflow-y-auto px-8 pb-8">
-            <ImageGallery cityId={city.id} cityTitle={city.title} />
+            <ImageGallery countryId={country.id} countryTitle={country.title} />
           </div>
         </div>
       </div>

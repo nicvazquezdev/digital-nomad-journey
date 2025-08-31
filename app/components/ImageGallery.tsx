@@ -5,12 +5,15 @@ import { useState } from "react";
 import { useImages } from "../hooks/useImages";
 
 interface ImageGalleryProps {
-  cityId: string;
-  cityTitle: string;
+  countryId: string;
+  countryTitle: string;
 }
 
-export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
-  const { images, loading, error } = useImages(cityId);
+export default function ImageGallery({
+  countryId,
+  countryTitle,
+}: ImageGalleryProps) {
+  const { images, loading, error } = useImages(countryId);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
@@ -63,7 +66,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
   if (!images || images.length === 0) {
     return (
       <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-        <p className="text-gray-600">No images found for {cityTitle}</p>
+        <p className="text-gray-600">No images found for {countryTitle}</p>
       </div>
     );
   }
@@ -86,7 +89,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
 
             <Image
               src={imageUrl}
-              alt={`${cityTitle} - Imagen ${index + 1}`}
+              alt={`${countryTitle} - Image ${index + 1}`}
               fill
               className={`object-cover transition-all duration-300 ${
                 loadedImages.has(index)
@@ -135,7 +138,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
       {images.length > 8 && (
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600 italic">
-            Una colección de {images.length} momentos especiales de {cityTitle}
+            A collection of {images.length} special moments from {countryTitle}
           </p>
         </div>
       )}
@@ -144,7 +147,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
       {images.length > 6 && (
         <div className="mt-3 text-center">
           <div className="text-xs text-gray-500">
-            Cargadas: {loadedImages.size} de {images.length} imágenes
+            Loaded: {loadedImages.size} of {images.length} images
           </div>
           <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
             <div
@@ -164,7 +167,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
           <div className="relative max-w-4xl max-h-[90vh] w-full h-full">
             <Image
               src={images[selectedImage]}
-              alt={`${cityTitle} - Imagen ${selectedImage + 1}`}
+              alt={`${countryTitle} - Image ${selectedImage + 1}`}
               fill
               className="object-contain"
               sizes="100vw"
@@ -249,7 +252,7 @@ export default function ImageGallery({ cityId, cityTitle }: ImageGalleryProps) {
 
             {/* Image counter */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
-              {selectedImage + 1} de {images.length}
+              {selectedImage + 1} of {images.length}
             </div>
           </div>
         </div>

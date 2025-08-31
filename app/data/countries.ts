@@ -1,4 +1,4 @@
-export interface CityData {
+export interface CountryData {
   id: string;
   title: string;
   defaultImage: string;
@@ -6,7 +6,7 @@ export interface CityData {
   description: string;
 }
 
-export const cities: CityData[] = [
+export const countries: CountryData[] = [
   {
     id: "mexico",
     title: "Mexico",
@@ -137,7 +137,7 @@ export const cities: CityData[] = [
   },
 ];
 
-// Helper function to get the default image URL for a city
-export function getDefaultImageUrl(city: CityData): string {
-  return `/assets/${city.id}/${city.defaultImage}`;
+// Helper function to get the default image URL for a country
+export function getDefaultImageUrl(country: CountryData): string {
+  return `/assets/${country.id}/${country.defaultImage}`;
 }
