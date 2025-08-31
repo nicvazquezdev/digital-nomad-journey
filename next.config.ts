@@ -16,11 +16,6 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
-  swcMinify: true,
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ["react", "react-dom"],
-  },
   async headers() {
     return [
       {
