@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Sky from "./components/Sky";
 import CloudsContainer from "./components/CloudsContainer";
 import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
-import { type CountryData, countries } from "./data/countries";
-import { preloadAllImages } from "./hooks/useImages";
+import { type CountryData } from "./data/countries";
 
 export default function Home() {
   const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(
@@ -15,14 +14,6 @@ export default function Home() {
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dismissedCards, setDismissedCards] = useState<Set<string>>(new Set());
-
-  // Preload all images at startup
-  useEffect(() => {
-    const countryIds = countries.map((country) => country.id);
-    preloadAllImages(countryIds).catch((error) => {
-      console.warn("Failed to preload some images:", error);
-    });
-  }, []);
 
   const handleCardClick = (country: CountryData) => {
     setSelectedCountry(country);

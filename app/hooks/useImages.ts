@@ -16,7 +16,7 @@ export function useImages(countryId: string) {
     countryId && imageCache.has(countryId) ? imageCache.get(countryId)! : [],
   );
   const [loading, setLoading] = useState(() =>
-    countryId && imageCache.has(countryId) ? false : true,
+    countryId ? (imageCache.has(countryId) ? false : true) : false,
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -83,25 +83,6 @@ export function useImages(countryId: string) {
   }, [countryId]);
 
   return { images, loading, error };
-}
-
-// Function to preload images from all countries
-export async function preloadAllImages(countryIds: string[]) {
-  const promises = countryIds.map(async (countryId) => {
-    if (imageCache.has(countryId)) return; // Already cached
-
-    try {
-      const response = await fetch(`/api/images/${countryId}`);
-      if (response.ok) {
-        const data: ImageResponse = await response.json();
-        imageCache.set(countryId, data.images);
-      }
-    } catch (error) {
-      console.warn(`Failed to preload images for ${countryId}:`, error);
-    }
-  });
-
-  await Promise.all(promises);
 }
 
 // Function to clear cache if necessary
