@@ -157,30 +157,10 @@ export default function DigitalNomadModal({
           </svg>
         </button>
 
-        {/* Header - Fixed on desktop, scrollable on mobile */}
-        <div className="hidden md:block relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
-          <Image
-            src={getDefaultImageUrl(country)}
-            alt={country.title}
-            fill
-            className="object-cover"
-            sizes="800px"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-100/30 via-transparent to-orange-200/40 mix-blend-overlay" />
-
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-            <h1 className="text-4xl font-bold text-white font-serif mb-2">
-              {country.title}
-            </h1>
-            <p className="text-xl text-amber-100 font-medium">{country.date}</p>
-          </div>
-        </div>
-
-        {/* Content - Scrollable section that includes header on mobile, description and gallery */}
+        {/* Content - Scrollable section that includes header, description and gallery */}
         <div className="flex-1 overflow-y-auto">
-          {/* Header for mobile - Inside scrollable area */}
-          <div className="md:hidden relative h-64 overflow-hidden rounded-t-2xl flex-shrink-0">
+          {/* Header - Inside scrollable area for both mobile and desktop */}
+          <div className="relative h-64 md:h-72 overflow-hidden rounded-t-2xl flex-shrink-0">
             <Image
               src={getDefaultImageUrl(country)}
               alt={country.title}
