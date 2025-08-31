@@ -1,17 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sky from "./components/Sky";
 import CloudsContainer from "./components/CloudsContainer";
 import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
-import { type CityData } from "./data/cities";
+import { type CityData, cities } from "./data/cities";
+import { preloadAllImages } from "./hooks/useImages";
 
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState<CityData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dismissedCards, setDismissedCards] = useState<Set<string>>(new Set());
+
+  // Precargar todas las imágenes al inicio
+  useEffect(() => {
+    const cityIds = cities.map((city) => city.id);
+    preloadAllImages(cityIds).catch((error) => {
+      console.warn("Failed to preload some images:", error);
+    });
+  }, []);
 
   const handleCardClick = (city: CityData) => {
     setSelectedCity(city);
