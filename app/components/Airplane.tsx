@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface AirplaneProps {
   size?: "small" | "medium" | "large";
   position?: { x: number; y: number };
@@ -34,7 +36,16 @@ export default function Airplane({
       }}
     >
       {/* Friendly airplane design */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full flex items-center flex-col">
+        {/* Avatar standing on top of the airplane */}
+        <Image
+          src="/avatar.png"
+          alt="Avatar standing on airplane"
+          className="object-contain md:mt-1"
+          width={24}
+          height={24}
+        />
+
         {/* Main body (fuselage) - rounded and friendly */}
         <div className="absolute top-1/2 left-1/4 w-3/5 h-1/3 bg-blue-400 rounded-full transform -translate-y-1/2 shadow-lg"></div>
 
@@ -46,9 +57,6 @@ export default function Airplane({
 
         {/* Tail - vertical */}
         <div className="absolute top-1/4 left-1/4 w-1/8 h-1/2 bg-red-400 rounded-t-full"></div>
-
-        {/* Cockpit window */}
-        <div className="absolute top-1/2 left-2/5 w-1/6 h-1/8 bg-sky-200 rounded-full transform -translate-y-1/2 border-2 border-blue-600"></div>
 
         {/* Wing stripes for decoration */}
         <div className="absolute top-1/2 left-1/5 w-3/5 h-0.5 bg-white rounded-full transform -translate-y-1/2 opacity-80"></div>
