@@ -67,7 +67,7 @@ export default function FloatingCard({
       {onDismiss && (
         <button
           onClick={handleDismiss}
-          className="absolute top-0 left-0 z-20 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group"
+          className="absolute top-0 left-0 z-20 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group"
           aria-label="Skip card"
           onMouseEnter={() => {
             setIsWobbling(true);
