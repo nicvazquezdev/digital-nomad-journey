@@ -9,32 +9,57 @@ interface DigitalNomadModalProps {
   country: CountryData | null;
   isOpen: boolean;
   onClose: () => void;
+  onNavigatePrevious?: () => void;
+  onNavigateNext?: () => void;
+  canNavigatePrevious?: boolean;
+  canNavigateNext?: boolean;
 }
 
 export default function DigitalNomadModal({
   country,
   isOpen,
   onClose,
+  onNavigatePrevious,
+  onNavigateNext,
+  canNavigatePrevious = false,
+  canNavigateNext = false,
 }: DigitalNomadModalProps) {
-  // Close modal with Escape key
+  // Handle keyboard navigation
   useEffect(() => {
-    const handleEscapeKey = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
+      } else if (
+        e.key === "ArrowLeft" &&
+        canNavigatePrevious &&
+        onNavigatePrevious
+      ) {
+        e.preventDefault();
+        onNavigatePrevious();
+      } else if (e.key === "ArrowRight" && canNavigateNext && onNavigateNext) {
+        e.preventDefault();
+        onNavigateNext();
       }
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscapeKey);
+      document.addEventListener("keydown", handleKeyDown);
       // Prevent body scroll when modal is open
       document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, onClose]);
+  }, [
+    isOpen,
+    onClose,
+    onNavigatePrevious,
+    onNavigateNext,
+    canNavigatePrevious,
+    canNavigateNext,
+  ]);
 
   if (!isOpen || !country) return null;
 
@@ -45,6 +70,52 @@ export default function DigitalNomadModal({
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
+
+      {/* Previous Navigation Button */}
+      {canNavigatePrevious && onNavigatePrevious && (
+        <button
+          onClick={onNavigatePrevious}
+          className="absolute left-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group"
+          aria-label="Previous country"
+        >
+          <svg
+            className="w-6 h-6 text-gray-700 group-hover:text-gray-900"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+      )}
+
+      {/* Next Navigation Button */}
+      {canNavigateNext && onNavigateNext && (
+        <button
+          onClick={onNavigateNext}
+          className="absolute right-4 z-10 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 group"
+          aria-label="Next country"
+        >
+          <svg
+            className="w-6 h-6 text-gray-700 group-hover:text-gray-900"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      )}
 
       {/* Modal Content */}
       <div className="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] border-4 border-white flex flex-col">

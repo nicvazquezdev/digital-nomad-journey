@@ -6,7 +6,7 @@ import CloudsContainer from "./components/CloudsContainer";
 import Airplane from "./components/Airplane";
 import FloatingCardsContainer from "./components/FloatingCardsContainer";
 import DigitalNomadModal from "./components/DigitalNomadModal";
-import { type CountryData } from "./data/countries";
+import { type CountryData, countries } from "./data/countries";
 
 export default function Home() {
   const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(
@@ -28,6 +28,57 @@ export default function Home() {
   const handleDismissCard = (countryId: string) => {
     setDismissedCards((prev) => new Set([...prev, countryId]));
   };
+
+  // Navigation functions for modal
+  const handleNavigatePrevious = () => {
+    if (!selectedCountry) return;
+
+    const visibleCountries = countries.filter(
+      (country) => !dismissedCards.has(country.id),
+    );
+    const currentIndex = visibleCountries.findIndex(
+      (country) => country.id === selectedCountry.id,
+    );
+
+    if (currentIndex > 0) {
+      setSelectedCountry(visibleCountries[currentIndex - 1]);
+    }
+  };
+
+  const handleNavigateNext = () => {
+    if (!selectedCountry) return;
+
+    const visibleCountries = countries.filter(
+      (country) => !dismissedCards.has(country.id),
+    );
+    const currentIndex = visibleCountries.findIndex(
+      (country) => country.id === selectedCountry.id,
+    );
+
+    if (currentIndex < visibleCountries.length - 1) {
+      setSelectedCountry(visibleCountries[currentIndex + 1]);
+    }
+  };
+
+  // Check if navigation is possible
+  const getNavigationState = () => {
+    if (!selectedCountry)
+      return { canNavigatePrevious: false, canNavigateNext: false };
+
+    const visibleCountries = countries.filter(
+      (country) => !dismissedCards.has(country.id),
+    );
+    const currentIndex = visibleCountries.findIndex(
+      (country) => country.id === selectedCountry.id,
+    );
+
+    return {
+      canNavigatePrevious: currentIndex > 0,
+      canNavigateNext: currentIndex < visibleCountries.length - 1,
+    };
+  };
+
+  const { canNavigatePrevious, canNavigateNext } = getNavigationState();
 
   return (
     <div className="w-screen h-screen relative overflow-hidden">
@@ -54,6 +105,10 @@ export default function Home() {
         country={selectedCountry}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        onNavigatePrevious={handleNavigatePrevious}
+        onNavigateNext={handleNavigateNext}
+        canNavigatePrevious={canNavigatePrevious}
+        canNavigateNext={canNavigateNext}
       />
     </div>
   );
