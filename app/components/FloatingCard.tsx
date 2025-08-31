@@ -64,7 +64,7 @@ export default function FloatingCard({
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-amber-100/20 to-orange-200/30 rounded-lg"></div>
 
       {/* Dismiss button */}
-      {onDismiss && (
+      {/*{onDismiss && (
         <button
           onClick={handleDismiss}
           className="absolute top-0 left-0 z-20 bg-red-700 hover:bg-red-600 cursor-pointer text-white rounded-full w-6 h-6 flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg group"
@@ -90,7 +90,7 @@ export default function FloatingCard({
             />
           </svg>
         </button>
-      )}
+      )}*/}
 
       {/* Country Image */}
       <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
