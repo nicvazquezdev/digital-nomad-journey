@@ -2,6 +2,8 @@
 
 An interactive web application showcasing authentic travel experiences from a digital nomad's journey across 16+ countries. Built with Next.js and featuring beautiful animations, image galleries, and immersive storytelling.
 
+<img width="1723" height="955" alt="Screenshot 2025-08-31 at 2 40 49 AM" src="https://github.com/user-attachments/assets/0abc1989-e7f1-410a-8922-ffcdf228b449" />
+
 ## ✨ Features
 
 - **Interactive Country Cards**: Drag and dismiss floating cards to explore different destinations

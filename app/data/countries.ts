@@ -53,7 +53,7 @@ export const countries: CountryData[] = [
     defaultImage: "IMG_1907.jpg",
     date: "March 2025",
     description:
-      "Thailand was my first time in Southeast Asia, and it was both cheap and unforgettable. I visited Bangkok and Phuket — Bangkok was super fun with a great nightlife, and Phuket had beautiful beaches. I was surprised to see how open marijuana was, with people smoking at hostels and shops selling it everywhere. The people were very friendly, they spoke English, and getting around in tuk-tuks for the first time was a lot of fun. Visiting the Buddhist temples added another layer to the experience and made the trip even more memorable.",
+      "Thailand was my first time in Southeast Asia, and it was both cheap and unforgettable. I visited Bangkok and Phuket — Bangkok was super fun with a great nightlife, and Phuket had beautiful beaches. I was surprised to see how open weed was, with people smoking at hostels and shops selling it everywhere. The people were very friendly, they spoke English, and getting around in tuk-tuks for the first time was a lot of fun. Visiting the Buddhist temples added another layer to the experience and made the trip even more memorable.",
   },
   {
     id: "turkey",
