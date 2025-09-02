@@ -103,7 +103,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📱 Live Demo
 
-Visit the live application: [https://digital-nomad-journey.vercel.app](https://digital-nomad-journey.vercel.app)
+Visit the live application: [https://travels.nicolasvazquez.com.ar](https://travels.nicolasvazquez.com.ar)
 
 ---
 

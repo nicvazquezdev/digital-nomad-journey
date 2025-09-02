@@ -44,7 +44,7 @@ export function generateJsonLd(country?: CountryData) {
       "Digital nomad sharing authentic travel experiences from around the world",
     url:
       process.env.NEXT_PUBLIC_SITE_URL ||
-      "https://digital-nomad-journey.vercel.app",
+      "https://travels.nicolasvazquez.com.ar",
     image: "/assets/japan/IMG_9838 2.jpg",
     sameAs: ["https://linkedin.com/in/nicvazquez"],
     knowsAbout: [

@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/nicvazquezdev/digital-nomad-journey/issues"
   },
-  "homepage": "https://digital-nomad-journey.vercel.app",
+  "homepage": "https://travels.nicolasvazquez.com.ar",
   "scripts": {
     "dev": "npm run generate:images && next dev --turbopack",
     "build": "npm run generate:images && next build --turbopack",
